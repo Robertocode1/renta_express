@@ -1,0 +1,157 @@
+<div th:fragment="content">
+    <section class="content">
+        <div class="container-fluid px-5">
+            <div class="card-body">
+                <a role="button" class="btn btn-danger btn-modal" data-bs-toggle="modal" data-bs-target="#agregarModal"><i class="fa-solid fa-circle-plus"></i> Agregar usuario</a>
+                <div class="table-responsive px-2 py-4">
+                    <table id="tbl" class="table table-striped table-cell-border table-hover" width="100%" cellspacing="0">
+                        <thead>
+                        <tr><!--Etiqueta para crear una fila-->
+                            <th>Usuario</th><!--Etiqueta para crear columnas de cabecera-->
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Documento</th>
+                            <th>Fecha de reg.</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="u : ${usuarios}">
+                            <td th:text="${u.usuario}"></td>
+                            <td th:text="${u.nombre}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.documento}"></td>
+                            <td th:text="${#temporals.format(u.fechaCreacion, 'dd/MM/yyyy')}"></td>
+                            <td th:text="${u.rol.nombre}"></td>
+                            <td th:text="${u.estado.nombre}"></td>
+                            <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#passwordModal" class="text-secondary" role="button" onclick="" data-placement="top" title="Reasignar contraseña"><i class="fa-solid fa-lock"></i></a></td>
+                            <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#modificarModal" class="text-primary" role="button" onclick="" data-placement="top" title="Modificar registro"><i class="fa-solid fa-edit"></i></a></td>
+                            <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#eliminarModal" class="text-danger" role="button" onclick="" data-placement="top" title="Eliminar registro"><i class="fa-solid fa-trash"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Agregar -->
+    <div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="false" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fa-solid fa-user-plus"></i> Agregar Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/usuario/agregarUsuario}" th:object="${usuario}" method="post">
+                    <div class="modal-body row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Usuario</label>
+                            <input type="text" class="form-control" th:field="*{usuario}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" th:field="*{email}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Documento</label>
+                            <input type="text" class="form-control" th:field="*{documento}" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Foto (URL)</label>
+                            <input type="text" class="form-control" th:field="*{foto}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-save"></i> Guardar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar
+    <div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="modificarModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fa-solid fa-user-pen"></i> Editar Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/usuarios/editar}" th:object="${usuario}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="modal-body row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Usuario</label>
+                            <input type="text" class="form-control" th:field="*{usuario}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Correo</label>
+                            <input type="email" class="form-control" th:field="*{email}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Documento</label>
+                            <input type="text" class="form-control" th:field="*{documento}" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Foto (URL)</label>
+                            <input type="text" class="form-control" th:field="*{foto}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-save"></i> Actualizar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Modal Eliminar -->
+    <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="eliminarModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fa-solid fa-trash"></i> Eliminar Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form th:action="@{/usuarios/eliminar}" method="post">
+                    <input type="hidden" name="id" id="deleteId">
+                    <div class="modal-body">
+                        <p>¿Seguro que deseas eliminar este usuario?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

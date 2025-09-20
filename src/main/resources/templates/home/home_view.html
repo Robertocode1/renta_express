@@ -1,0 +1,530 @@
+<div th:fragment="content">
+    <div class="main-content">
+        <section class="search-section">
+            <div class="search-grid">
+                <div class="search-input">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Buscar en renta de vehículos...">
+                </div>
+
+                <div class="location-select">
+                    <i class="ri-map-pin-line"></i>
+                    <select>
+                        <option value="">Todas las ubicaciones</option>
+                        <option value="Ciudad de México">Ciudad de México</option>
+                        <option value="Guadalajara">Guadalajara</option>
+                        <option value="Monterrey">Monterrey</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon car">
+                    <i class="ri-car-line"></i>
+                </div>
+                <div class="stat-number">250+</div>
+                <div class="stat-label">Vehículos Disponibles</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon users">
+                    <i class="ri-user-line"></i>
+                </div>
+                <div class="stat-number">1,200+</div>
+                <div class="stat-label">Usuarios Registrados</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon rating">
+                    <i class="ri-star-fill"></i>
+                </div>
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Calificación Promedio</div>
+            </div>
+        </section>
+
+        <div class="filters-results">
+            <div class="results-count">3 resultados encontrados</div>
+
+            <div class="sort-select">
+                <i class="ri-equalizer-line"></i>
+                <select>
+                    <option>Más relevantes</option>
+                    <option>Precio menor</option>
+                    <option>Precio mayor</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="vehicles-grid">
+            <!-- Vehicle 1 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/honda_civic_20.jpg"
+                         alt="Honda Civic">
+                    <div class="vehicle-badge">
+                        <i class="ri-car-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Honda Civic 2020 - Excelente Estado</h3>
+                    <p class="vehicle-description">Vehículo en perfectas condiciones, ideal para viajes largos o uso diario.
+                        Mantenimiento al día y documentos en regla.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Ciudad de México, CDMX</span>
+                        </div>
+
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                            <span>(15)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Aire Acondicionado</span>
+                        <span class="feature-tag">GPS</span>
+                        <span class="feature-tag">Bluetooth</span>
+                        <span class="feature-tag">+2 más</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80"
+                                     alt="Carlos Martínez">
+                            </div>
+
+                            <div class="owner-info">
+                                <div class="owner-name">Carlos Martínez</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span>(23)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$45/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 2 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/nissan_sentra_19.jpg"
+                         alt="Nissan Sentra">
+                    <div class="vehicle-badge">
+                        <i class="ri-car-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Nissan Sentra 2019 - Económico y Confiable</h3>
+                    <p class="vehicle-description">Vehículo económico perfecto para uso urbano. Bajo consumo de combustible
+                        y fácil manejo en la ciudad.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Puebla, PUE</span>
+                        </div>
+
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                            <span>(12)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Aire Acondicionado</span>
+                        <span class="feature-tag">Manual</span>
+                        <span class="feature-tag">Combustible Incluido</span>
+                        <span class="feature-tag">+1 más</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80"
+                                     alt="Ana Rodríguez">
+                            </div>
+
+                            <div class="owner-info">
+                                <div class="owner-name">Ana Rodríguez</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span>(19)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$35/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle 3 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/chevrolet-cruise.jpg"
+                         alt="Chevrolet Cruze">
+                    <div class="vehicle-badge">
+                        <i class="ri-car-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Chevrolet Cruze 2021 - Como Nuevo</h3>
+                    <p class="vehicle-description">Vehículo prácticamente nuevo con pocos kilómetros. Perfecto para
+                        ocasiones especiales o viajes de negocios.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>León, GTO</span>
+                        </div>
+
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-line"></i>
+                            <span>(18)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Asientos de Cuero</span>
+                        <span class="feature-tag">Automático</span>
+                        <span class="feature-tag">Bluetooth</span>
+                        <span class="feature-tag">+2 más</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80"
+                                     alt="Miguel Torres">
+                            </div>
+
+                            <div class="owner-info">
+                                <div class="owner-name">Miguel Torres</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-fill"></i>
+                                    <i class="ri-star-line"></i>
+                                    <span>(31)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$55/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehículo 1 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/Toyota_corolla_25.png" alt="Toyota Corolla">
+                    <div class="vehicle-badge">
+                        <i class="ri-car-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Toyota Corolla 2020 - Excelente Estado</h3>
+                    <p class="vehicle-description">Sedán confiable, económico en combustible y con aire acondicionado. Ideal para viajes largos.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Guadalajara, JAL</span>
+                        </div>
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i>
+                            <span>(24)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Aire Acondicionado</span>
+                        <span class="feature-tag">Manual</span>
+                        <span class="feature-tag">Bluetooth</span>
+                        <span class="feature-tag">GPS</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Carlos Pérez">
+                            </div>
+                            <div class="owner-info">
+                                <div class="owner-name">Carlos Pérez</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i>
+                                    <span>(19)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$45/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehículo 2 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/hondaCivic_25.png" alt="Honda Civic">
+                    <div class="vehicle-badge">
+                        <i class="ri-car-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Honda Civic 2019 - Deportivo</h3>
+                    <p class="vehicle-description">Compacto deportivo con excelente rendimiento y diseño moderno. Perfecto para ciudad.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Monterrey, NL</span>
+                        </div>
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i><i class="ri-star-line"></i>
+                            <span>(15)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Automático</span>
+                        <span class="feature-tag">Cámara Reversa</span>
+                        <span class="feature-tag">Bluetooth</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/29.jpg" alt="Laura García">
+                            </div>
+                            <div class="owner-info">
+                                <div class="owner-name">Laura García</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i>
+                                    <span>(12)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$50/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehículo 3 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/ford_escape_25.png" alt="Ford Escape">
+                    <div class="vehicle-badge">
+                        <i class="ri-truck-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Ford Escape 2022 - SUV Familiar</h3>
+                    <p class="vehicle-description">SUV amplia, cómoda y con gran espacio de maletero. Ideal para viajes familiares.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Puebla, PUE</span>
+                        </div>
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+                            <span>(32)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">AWD</span>
+                        <span class="feature-tag">Pantalla Táctil</span>
+                        <span class="feature-tag">GPS</span>
+                        <span class="feature-tag">+3 más</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Andrés López">
+                            </div>
+                            <div class="owner-info">
+                                <div class="owner-name">Andrés López</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i>
+                                    <span>(27)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$75/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehículo 4 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/nissan_versa2025.png" alt="Nissan Versa">
+                    <div class="vehicle-badge">
+                        <i class="ri-taxi-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Nissan Versa 2021 - Económico</h3>
+                    <p class="vehicle-description">Compacto económico, ideal para uso diario y viajes cortos dentro de la ciudad.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>CDMX</span>
+                        </div>
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i>
+                            <span>(10)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">Manual</span>
+                        <span class="feature-tag">Aire Acondicionado</span>
+                        <span class="feature-tag">USB</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Mariana Díaz">
+                            </div>
+                            <div class="owner-info">
+                                <div class="owner-name">Mariana Díaz</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i>
+                                    <span>(8)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$35/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehículo 5 -->
+            <div class="vehicle-card">
+                <div class="vehicle-image">
+                    <img src="/images/jeep_wrangler.png" alt="Jeep Wrangler">
+                    <div class="vehicle-badge">
+                        <i class="ri-roadster-line"></i>
+                        <span>renta</span>
+                    </div>
+                </div>
+
+                <div class="vehicle-content">
+                    <h3 class="vehicle-title">Jeep Wrangler 2021 - Offroad</h3>
+                    <p class="vehicle-description">Vehículo todoterreno listo para la aventura. Potente y con gran capacidad en caminos difíciles.</p>
+
+                    <div class="vehicle-meta">
+                        <div class="vehicle-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>Oaxaca, OAX</span>
+                        </div>
+                        <div class="vehicle-rating">
+                            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i><i class="ri-star-line"></i>
+                            <span>(14)</span>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-features">
+                        <span class="feature-tag">4x4</span>
+                        <span class="feature-tag">Descapotable</span>
+                        <span class="feature-tag">Cámara 360°</span>
+                        <span class="feature-tag">+1 más</span>
+                    </div>
+
+                    <div class="vehicle-footer">
+                        <div class="vehicle-owner">
+                            <div class="owner-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Javier Ramírez">
+                            </div>
+                            <div class="owner-info">
+                                <div class="owner-name">Javier Ramírez</div>
+                                <div class="owner-rating">
+                                    <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-line"></i><i class="ri-star-line"></i>
+                                    <span>(11)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vehicle-pricing">
+                            <div class="vehicle-price">$95/día</div>
+                            <button class="contact-btn">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
