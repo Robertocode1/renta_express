@@ -27,6 +27,10 @@
             <div class="nav-buttons">
                 <button class="nav-btn active">
                     <i class="ri-car-line"></i>
+                    <span>Inicio</span>
+                </button>
+                <button class="nav-btn">
+                    <i class="ri-car-line"></i>
                     <span>Renta</span>
                 </button>
                 <button class="nav-btn">
@@ -69,238 +73,6 @@
 
     <div class="main-layout">
         <div th:replace="~{${view} :: content}"> </div>
-        <aside class="sidebar">
-            <!-- Sección de Más Buscados arriba -->
-            <div class="sidebar-section">
-                <div class="sidebar-header">
-                    <div class="sidebar-icon red">
-                        <i class="ri-fire-line"></i>
-                    </div>
-                    <h3 class="sidebar-title">Más Buscados</h3>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank red">1</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Premium">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Servicio de Taxi Premium - Toyota Camry</div>
-                        <div class="item-price">$25/hora</div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank red">2</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1569173413094-9a7c85cf2a00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Ecológico">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Taxi Ecológico - Toyota Prius Híbrido</div>
-                        <div class="item-price">$22/hora</div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank red">3</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1623018035782-b269248df916?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Van">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Taxi Van - Grupo Grande hasta 8 Personas</div>
-                        <div class="item-price">$40/hora</div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank red">4</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1632823469826-03ce44783332?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Grúa Pesada">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Grúa Pesada 15 Toneladas - Servicio 24/7</div>
-                        <div class="item-price">$150/servicio</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sección de Mejor Valorados -->
-            <div class="sidebar-section">
-                <div class="sidebar-header">
-                    <div class="sidebar-icon yellow">
-                        <i class="ri-star-fill"></i>
-                    </div>
-                    <h3 class="sidebar-title">Mejor Valorados</h3>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank yellow">1</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1569173413094-9a7c85cf2a00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Ecológico">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Taxi Ecológico - Toyota Prius Híbrido</div>
-                        <div class="item-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.9</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank yellow">2</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Premium">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Servicio de Taxi Premium - Toyota Camry</div>
-                        <div class="item-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.8</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank yellow">3</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1549399542-7e82138d43aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Chevrolet Cruze">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Chevrolet Cruze 2021 - Como Nuevo</div>
-                        <div class="item-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.8</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <div class="item-rank yellow">4</div>
-                    <div class="item-image">
-                        <img src="https://images.unsplash.com/photo-1623018035782-b269248df916?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Taxi Van">
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">Taxi Van - Grupo Grande hasta 8 Personas</div>
-                        <div class="item-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.7</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sección de Usuarios Destacados -->
-            <div class="sidebar-section">
-                <div class="sidebar-header">
-                    <div class="sidebar-icon blue">
-                        <i class="ri-user-star-line"></i>
-                    </div>
-                    <h3 class="sidebar-title">Usuarios Destacados</h3>
-                </div>
-
-                <div class="user-item">
-                    <div class="item-rank blue">1</div>
-                    <div class="user-avatar-small">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="María González">
-                    </div>
-                    <div class="user-info">
-                        <div class="user-name">María González</div>
-                        <div class="user-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.9</span>
-                            <span class="rating-count">(87)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="user-item">
-                    <div class="item-rank blue">2</div>
-                    <div class="user-avatar-small">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Miguel Torres">
-                    </div>
-                    <div class="user-info">
-                        <div class="user-name">Miguel Torres</div>
-                        <div class="user-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.9</span>
-                            <span class="rating-count">(31)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="user-item">
-                    <div class="item-rank blue">3</div>
-                    <div class="user-avatar-small">
-                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Jorge Hernández">
-                    </div>
-                    <div class="user-info">
-                        <div class="user-name">Jorge Hernández</div>
-                        <div class="user-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.8</span>
-                            <span class="rating-count">(52)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="user-item">
-                    <div class="item-rank blue">4</div>
-                    <div class="user-avatar-small">
-                        <img src="https://images.unsplash.com/photo-1593104547480-0ff2e370e4e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Carmen Jiménez">
-                    </div>
-                    <div class="user-info">
-                        <div class="user-name">Carmen Jiménez</div>
-                        <div class="user-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.8</span>
-                            <span class="rating-count">(43)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="user-item">
-                    <div class="item-rank blue">5</div>
-                    <div class="user-avatar-small">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Carlos Martínez">
-                    </div>
-                    <div class="user-info">
-                        <div class="user-name">Carlos Martínez</div>
-                        <div class="user-rating">
-                            <i class="ri-star-fill"></i>
-                            <span>4.8</span>
-                            <span class="rating-count">(23)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Acciones Rápidas -->
-            <div class="quick-actions">
-                <h3 class="sidebar-title" style="margin-bottom: 1.2rem;">Acciones Rápidas</h3>
-
-                <button class="action-btn">
-                    <div class="action-icon green">
-                        <i class="ri-add-line"></i>
-                    </div>
-                    <span class="action-text">Publicar Vehículo</span>
-                </button>
-
-                <button class="action-btn">
-                    <div class="action-icon blue">
-                        <i class="ri-message-2-line"></i>
-                    </div>
-                    <span class="action-text">Mis Conversaciones</span>
-                </button>
-
-                <button class="action-btn">
-                    <div class="action-icon purple">
-                        <i class="ri-history-line"></i>
-                    </div>
-                    <span class="action-text">Mi Historial</span>
-                </button>
-            </div>
-        </aside>
     </div>
 </main>
 
@@ -337,12 +109,12 @@
     </div>
 </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script th:src="@{js/datatable.js}"></script>
-    <script th:src="@{js/scripts.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script th:src="@{js/datatable.js}"></script>
+<script th:src="@{js/scripts.js}"></script>
 
 </body>
 </html>
