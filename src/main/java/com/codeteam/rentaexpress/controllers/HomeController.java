@@ -12,6 +12,9 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model){
         model.addAttribute("view", "home/home_view");
+        model.addAttribute("tipo", "success");
+        model.addAttribute("mensaje", "Agregado con exito");
+
         return "layout/layout";
     }
 
