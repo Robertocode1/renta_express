@@ -46,7 +46,7 @@
             </div>
 
             <div class="header-actions">
-                <button class="publish-btn">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicarVehiculoModal">
                     <i class="ri-add-line"></i>
                     <span>Publicar Vehículo</span>
                 </button>
@@ -110,6 +110,131 @@
         </div>
     </div>
 </footer>
+
+<!-- Modal -->
+<div class="modal fade" id="publicarVehiculoModal" tabindex="-1" aria-labelledby="publicarVehiculoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="publicarVehiculoModalLabel">Publicar Vehículo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="space-y-4">
+                    <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-primary d-flex align-items-center gap-2">
+                                <i class="ri-car-line"></i>
+                                <span>Renta</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2">
+                                <i class="ri-taxi-line"></i>
+                                <span>Taxi</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2">
+                                <i class="ri-truck-line"></i>
+                                <span>Grúa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tituloAnuncio" class="form-label">Título del anuncio</label>
+                        <input type="text" class="form-control" id="tituloAnuncio" placeholder="Ej: Honda Civic 2020 - Excelente estado" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" rows="3" maxlength="500" placeholder="Describe tu vehículo, condiciones, requisitos..." required></textarea>
+                        <div class="form-text">0/500 caracteres</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="text" class="form-control" id="precio" placeholder="$50/día" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="ubicacion" placeholder="Ciudad, Estado" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Características (0 seleccionadas)</label>
+                        <div class="row g-2" style="max-height: 150px; overflow-y: auto;">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Aire Acondicionado</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">GPS</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Bluetooth</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Cámara Reversa</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Asientos de Cuero</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Automático</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Manual</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Combustible Incluido</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Seguro Incluido</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Conductor Incluido</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Grúa 24/7</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Capacidad 5 Ton</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Capacidad 10 Ton</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Plataforma</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Winche</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Cadenas</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono" placeholder="+1 234 567 8900" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="tu@email.com" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Publicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="toast-container" class="toast-container position-fixed top-0 start-50 trasnlate-middle-x p-3"
      style="z-index: 1111; display: none; width: 40%"></div>

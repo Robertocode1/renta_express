@@ -1,0 +1,180 @@
+<div th:fragment="content">
+        <!-- Migas de pan -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb small text-muted">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item text-capitalize">Renta</li>
+                <li class="breadcrumb-item active" aria-current="page">Honda Civic 2020 - Excelente Estado</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <!-- Columna principal -->
+            <div class="col-lg-8">
+                <!-- Galería -->
+                <div class="card mb-4">
+                    <div class="position-relative">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20silver%20Honda%20Civic%20sedan%202020%20parked%20in%20urban%20setting%20with%20clean%20background%20professional%20automotive%20photography&width=400&height=300&seq=gallery-2-honda-civic-001&orientation=landscape"
+                             class="card-img-top" alt="Honda Civic 2020 - Excelente Estado" style="height: 400px; object-fit: cover;">
+                        <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y rounded-circle ms-3">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y rounded-circle me-3">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                        <span class="badge bg-dark position-absolute bottom-0 end-0 m-3">3 / 5</span>
+                        <span class="badge bg-light text-dark position-absolute top-0 start-0 m-3 d-flex align-items-center">
+              <i class="ri-car-line text-primary me-1"></i> Renta de Vehículo
+            </span>
+                    </div>
+                    <div class="card-body d-flex gap-2">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20silver%20Honda%20Civic%20sedan%202020&width=400&height=300&seq=honda-civic-001&orientation=landscape"
+                             class="img-thumbnail" style="width:80px; height:60px; object-fit:cover;">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20silver%20Honda%20Civic%20sedan%202020&width=400&height=300&seq=gallery-1-honda-civic-001&orientation=landscape"
+                             class="img-thumbnail" style="width:80px; height:60px; object-fit:cover;">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20silver%20Honda%20Civic%20sedan%202020&width=400&height=300&seq=gallery-2-honda-civic-001&orientation=landscape"
+                             class="img-thumbnail border border-primary" style="width:80px; height:60px; object-fit:cover;">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20silver%20Honda%20Civic%20sedan%202020&width=400&height=300&seq=gallery-3-honda-civic-001&orientation=landscape"
+                             class="img-thumbnail" style="width:80px; height:60px; object-fit:cover;">
+                    </div>
+                </div>
+
+                <!-- Información -->
+                <div class="card p-4">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <h1 class="h4 fw-bold">Honda Civic 2020 - Excelente Estado</h1>
+                            <div class="d-flex text-muted small">
+                                <div class="me-3">
+                                    <i class="ri-map-pin-line"></i> Ciudad de México, CDMX
+                                </div>
+                                <div>
+                                    <i class="ri-star-fill text-warning"></i>
+                                    <i class="ri-star-fill text-warning"></i>
+                                    <i class="ri-star-fill text-warning"></i>
+                                    <i class="ri-star-fill text-warning"></i>
+                                    <i class="ri-star-line text-warning"></i>
+                                    <span>(15 reseñas)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <h2 class="text-primary fw-bold">$45/día</h2>
+                            <p class="small text-muted">por día</p>
+                        </div>
+                    </div>
+
+                    <p class="text-muted">Vehículo en perfectas condiciones, ideal para viajes largos o uso diario. Mantenimiento al día y documentos en regla.</p>
+
+                    <h5 class="mt-4">Características</h5>
+                    <div class="mb-3">
+                        <span class="badge bg-primary-subtle text-primary border me-1">Aire Acondicionado</span>
+                        <span class="badge bg-primary-subtle text-primary border me-1">GPS</span>
+                        <span class="badge bg-primary-subtle text-primary border me-1">Bluetooth</span>
+                        <span class="badge bg-primary-subtle text-primary border me-1">Automático</span>
+                        <span class="badge bg-primary-subtle text-primary border">Seguro Incluido</span>
+                    </div>
+
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs mb-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#"><i class="ri-information-line me-1"></i>Detalles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="ri-user-line me-1"></i>Propietario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="ri-star-line me-1"></i>Reseñas</a>
+                        </li>
+                    </ul>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="bg-light rounded p-3">
+                                <h6><i class="ri-calendar-line text-primary me-1"></i>Disponibilidad</h6>
+                                <p class="small text-muted mb-0">Disponible todos los días</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light rounded p-3">
+                                <h6><i class="ri-time-line text-primary me-1"></i>Horario</h6>
+                                <p class="small text-muted mb-0">24 horas disponible</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light rounded p-3">
+                                <h6><i class="ri-shield-check-line text-primary me-1"></i>Seguro</h6>
+                                <p class="small text-muted mb-0">Cobertura total incluida</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="bg-light rounded p-3">
+                                <h6><i class="ri-gas-station-line text-primary me-1"></i>Combustible</h6>
+                                <p class="small text-muted mb-0">Tanque lleno</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card mb-4 p-4">
+                    <div class="text-center mb-3">
+                        <h2 class="text-primary fw-bold">$45/día</h2>
+                        <p class="small text-muted">por día</p>
+                    </div>
+                    <button class="btn btn-primary w-100 mb-2"><i class="ri-message-2-line me-2"></i>Contactar Propietario</button>
+                    <button class="btn btn-outline-primary w-100 mb-2"><i class="ri-phone-line me-2"></i>Llamar Ahora</button>
+                    <button class="btn btn-outline-primary w-100"><i class="ri-heart-line me-2"></i>Guardar en Favoritos</button>
+                    <hr>
+                    <div class="d-flex justify-content-between small text-muted">
+                        <span>Respuesta típica:</span><span class="fw-medium">15 min</span>
+                    </div>
+                    <div class="d-flex justify-content-between small text-muted">
+                        <span>Tasa de aceptación:</span><span class="fw-medium text-success">98%</span>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <h6><i class="ri-shield-check-line me-2"></i>Consejos de Seguridad</h6>
+                    <ul class="small mb-0">
+                        <li>Verifica la identidad del propietario</li>
+                        <li>Inspecciona el vehículo antes de usar</li>
+                        <li>Documenta cualquier daño existente</li>
+                        <li>Lee los términos y condiciones</li>
+                    </ul>
+                </div>
+
+                <div class="card p-4">
+                    <h5 class="mb-3">Vehículos Similares</h5>
+                    <div class="d-flex mb-3">
+                        <img src="https://readdy.ai/api/search-image?query=Black%20Chevrolet%20Cruze%20sedan%202021&width=400&height=300&seq=cruze-2021-001&orientation=landscape"
+                             class="rounded me-2" style="width:70px; height:50px; object-fit:cover;">
+                        <div>
+                            <p class="small fw-bold mb-1">Chevrolet Cruze 2021 - Como Nuevo</p>
+                            <div class="d-flex align-items-center">
+                                <i class="ri-star-fill text-warning"></i><i class="ri-star-fill text-warning"></i>
+                                <i class="ri-star-fill text-warning"></i><i class="ri-star-fill text-warning"></i>
+                                <i class="ri-star-line text-warning"></i>
+                                <span class="text-primary ms-2">$55/día</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <img src="https://readdy.ai/api/search-image?query=Blue%20Nissan%20Sentra%20sedan%202019&width=400&height=300&seq=nissan-sentra-001&orientation=landscape"
+                             class="rounded me-2" style="width:70px; height:50px; object-fit:cover;">
+                        <div>
+                            <p class="small fw-bold mb-1">Nissan Sentra 2019 - Económico y Confiable</p>
+                            <div class="d-flex align-items-center">
+                                <i class="ri-star-fill text-warning"></i><i class="ri-star-fill text-warning"></i>
+                                <i class="ri-star-fill text-warning"></i><i class="ri-star-fill text-warning"></i>
+                                <i class="ri-star-line text-warning"></i>
+                                <span class="text-primary ms-2">$35/día</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

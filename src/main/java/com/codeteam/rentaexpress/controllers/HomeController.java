@@ -18,5 +18,13 @@ public class HomeController {
         return "layout/layout";
     }
 
+    @GetMapping("/publicacion")
+    public String publicacion(Model model){
+        model.addAttribute("view", "publicaciones/publicacion_view");
+
+
+        return "layout/layout";
+    }
+
 
 }

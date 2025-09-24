@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.codeteam.rentaexpress.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 
@@ -34,15 +35,28 @@ public class UsuarioController {
 
     // Agregar usuario
     @PostMapping("/usuario/agregarUsuario")
-    public String agregarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        // Valores por defecto
-        usuario.setContrasenha("123456"); //  encriptarla con BCrypt
-        usuario.setRol(new Rol(2,"Usuario")); // 2 = Usuario normal
-        usuario.setEstado(new Estado(1, "Activo")); // 1 = Activo
-        usuario.setFechaCreacion(LocalDateTime.now());
+    public String agregarUsuario(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttributes) {
 
+        switch(usuarioService.agregarUsuario(usuario)){
+            case 1:
+                redirectAttributes.addFlashAttribute("tipo", "success");
+                redirectAttributes.addFlashAttribute("mensaje", "Usuario creado exitosamente");
+                break;
+            case 2:
+                redirectAttributes.addFlashAttribute("tipo", "success");
+                redirectAttributes.addFlashAttribute("mensaje", "Usuario creado exitosamente");
+                break;
+            case 3:
+                redirectAttributes.addFlashAttribute("tipo", "success");
+                redirectAttributes.addFlashAttribute("mensaje", "Usuario creado exitosamente");
+                break;
+            case 0:
+                redirectAttributes.addFlashAttribute("tipo", "success");
+                redirectAttributes.addFlashAttribute("mensaje", "Usuario creado exitosamente");
+                break;
 
-        usuarioService.agregarUsuario(usuario);
+        }
+
         return "redirect:/usuarios"; // vuelve al listado
     }
 

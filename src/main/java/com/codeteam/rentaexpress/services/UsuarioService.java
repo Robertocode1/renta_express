@@ -2,6 +2,7 @@ package com.codeteam.rentaexpress.services;
 
 
 import lombok.RequiredArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.codeteam.rentaexpress.repositories.UsuarioRepository;
@@ -15,6 +16,8 @@ import org.springframework.util.Assert;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.security.SecureRandom;
+
 
 @Service
 @Transactional
@@ -23,33 +26,36 @@ public class UsuarioService {
     private final EstadoRepository estadoRepo;
     private final RolRepository rolRepo;
     private final UsuarioRepository usuarioRepo;
-
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final SecureRandom random = new SecureRandom();
+    private final EmailService emailService;
 
     //Funcion para agregar un usuario nuevo
-    public Usuario agregarUsuario(Usuario usuario) {
+    public int agregarUsuario(Usuario usuario) {
         Assert.notNull(usuario, "El usuario no puede ser nulo.");
-        Assert.hasText(usuario.getUsuario(), "El usuario no puede ser nulo.");
-        Assert.hasText(usuario.getEmail(), "El email no puede ser nulo.");
-        Assert.hasText(usuario.getDocumento(), "El nombre no puede ser nulo.");
-        Assert.hasText(usuario.getNombre(),  "El nombre no puede ser nulo.");
-        Assert.notNull(usuario.getRol(), "El rol no puede ser nulo.");
-        Assert.notNull(usuario.getEstado(), "El estado no puede ser nulo.");
-        Assert.hasText(usuario.getContrasenha(), "El contrasenha no puede ser nulo.");
-
         validarUsuario(usuario.getUsuario());
         validarEmail(usuario.getEmail());
-        validarEstado(usuario.getEstado().getId());
-        validarRol(usuario.getRol().getId());
 
-        //hash de la contrasenha
-        usuario.setContrasenha(usuario.getContrasenha());
 
-        //validar si viene la fecha de registro
-        if (usuario.getFechaCreacion() == null) {
-            usuario.setFechaCreacion(LocalDateTime.now());
+        //VALORES POR DEFECTO
+        usuario.setRol(new Rol(2,"Usuario")); // 2 = Usuario normal
+        usuario.setEstado(new Estado(1, "Activo")); // 1 = Activo
+        usuario.setFechaCreacion(LocalDateTime.now());
+
+        String password = generarPassword();
+        emailService.sendEmail(usuario.getEmail(), "Cuenta creada", "su contrasenha es: " + password);
+
+        //encriptar contrasenha
+
+        usuario.setContrasenha(BCrypt.hashpw(password, BCrypt.gensalt()));
+
+        try {
+            usuarioRepo.save(usuario);
+            return 1;
         }
-
-        return usuarioRepo.save(usuario);
+        catch (Exception e){
+            return 0;
+        }
     }
 
     //Funcion para actualizar usuario
@@ -170,6 +176,15 @@ public class UsuarioService {
         if(usuarioRepo.findByEmail(email).isPresent()){
             throw new IllegalArgumentException("El email: " + email + " ya existe");
         }
+    }
+
+    private static String generarPassword(){
+        StringBuilder password = new StringBuilder(8);
+        for(int i = 0; i < 8; i++){
+            int index = random.nextInt(CHARACTERS.length());
+            password.append(CHARACTERS.charAt(index));
+        }
+        return password.toString();
     }
 
 }
