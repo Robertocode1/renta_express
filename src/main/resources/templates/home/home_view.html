@@ -1,4 +1,11 @@
-<div th:fragment="content">
+<div th:fragment="content" class="container-fluid px-5">
+    <section class="hero">
+        <div class="hero-icon">
+            <i class="fas fa-car"></i>
+        </div>
+        <h1>Renta de Vehículos</h1>
+        <p>Encuentra el vehículo perfecto para tus necesidades</p>
+    </section>
     <div class="main-content">
         <section class="search-section">
             <div class="search-grid">
@@ -62,9 +69,11 @@
         <div class="vehicles-grid">
             <!-- Vehicle 1 -->
             <div class="vehicle-card">
+                <!-- Imagen clickeable -->
                 <div class="vehicle-image">
-                    <img src="/images/honda_civic_20.jpg"
-                         alt="Honda Civic">
+                    <a th:href="@{/publicacion}">
+                        <img src="/images/honda_civic_20.jpg" alt="Honda Civic">
+                    </a>
                     <div class="vehicle-badge">
                         <i class="ri-car-line"></i>
                         <span>renta</span>
@@ -72,9 +81,17 @@
                 </div>
 
                 <div class="vehicle-content">
-                    <h3 class="vehicle-title">Honda Civic 2020 - Excelente Estado</h3>
-                    <p class="vehicle-description">Vehículo en perfectas condiciones, ideal para viajes largos o uso diario.
-                        Mantenimiento al día y documentos en regla.</p>
+                    <!-- Título clickeable -->
+                    <h3 class="vehicle-title">
+                        <a th:href="@{/publicacion}" class="text-decoration-none text-dark">
+                            Honda Civic 2020 - Excelente Estado
+                        </a>
+                    </h3>
+
+                    <p class="vehicle-description">
+                        Vehículo en perfectas condiciones, ideal para viajes largos o uso diario.
+                        Mantenimiento al día y documentos en regla.
+                    </p>
 
                     <div class="vehicle-meta">
                         <div class="vehicle-location">
@@ -121,11 +138,12 @@
 
                         <div class="vehicle-pricing">
                             <div class="vehicle-price">$45/día</div>
-                            <button class="contact-btn">Contactar</button>
+                            <button class="contact-btn" th:if="${session.usuario == null}" data-bs-toggle="modal" data-bs-target="#loginModal">Contactar</button>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Vehicle 2 -->
             <div class="vehicle-card">

@@ -15,7 +15,7 @@ class EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        message.setFrom("");
+        message.setFrom("RentaExpress <cg224100282@uma.edu.sv>");
 
         mailSender.send(message);
     }

@@ -2,32 +2,33 @@ package com.codeteam.rentaexpress.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "publicacion_caracteristica", schema = "public")
-public class PublicacionCaracteristica {
+@Table(name = "publicacion_imagen", schema = "public")
+public class PublicacionImagen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_publicacion_caracteristica", nullable = false)
+    @Column(name = "id_imagen", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "publicacion_id", nullable = false)
-    private Publicacion publicacion;
+    @JoinColumn(name = "id_publicacion", nullable = false)
+    private Publicacion idPublicacion;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "caracteristica_id", nullable = false)
-    private Caracteristica caracteristica;
+    @Column(name = "url_imagen", nullable = false)
+    private String urlImagen;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fecha_creacion")

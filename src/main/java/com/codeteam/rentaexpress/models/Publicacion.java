@@ -2,14 +2,15 @@ package com.codeteam.rentaexpress.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -20,12 +21,12 @@ public class Publicacion {
     @Column(name = "id_publicacion", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    private Usuario idUsuario;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "id_tipo_publicacion", nullable = false)
     private TipoPublicacion idTipoPublicacion;
@@ -36,24 +37,39 @@ public class Publicacion {
     @Column(name = "descripcion", length = 500)
     private String descripcion;
 
+    @Column(name = "marca", nullable = false, length = 100)
+    private String marca;
+
+    @Column(name = "modelo", nullable = false, length = 100)
+    private String modelo;
+
+    @Column(name = "anio", nullable = false)
+    private Integer anio;
+
     @Column(name = "precio", precision = 10, scale = 2)
     private BigDecimal precio;
 
-    @Column(name = "ciudad", length = 50)
-    private String ciudad;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_tipo_precio", nullable = false)
+    private TipoPrecio idTipoPrecio;
 
-    @Column(name = "telefono_contacto", length = 20)
-    private String telefonoContacto;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_departamento", nullable = false)
+    private Departamento idDepartamento;
 
-    @Column(name = "correo_contacto", length = 100)
-    private String correoContacto;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_municipio", nullable = false)
+    private Municipio idMunicipio;
+
+    @Column(name = "telefono", nullable = false, length = 20)
+    private String telefono;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_estado", nullable = false)
+    private Estado idEstado;
+
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fecha_creacion")
-    private Instant fechaCreacion;
-
-    @ColumnDefault("'Activo'")
-    @Column(name = "estado_publicacion", length = 20)
-    private String estadoPublicacion;
-
+    private LocalDateTime fechaCreacion;
 }

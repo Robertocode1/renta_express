@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark" lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon temporal -->
+    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/svgs/solid/car.svg">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet">
+
 
     <link rel="stylesheet" th:href="@{fontawesome/css/all.css}"/>
     <link rel="stylesheet" th:href="@{css/styles.css}"/>
@@ -18,63 +20,148 @@
 </head>
 
 <body>
-<header>
+<header class="bg-primary text-dark shadow-sm sticky-top transparencia py-3">
     <div class="container">
-        <div class="header-content">
-            <div class="logo">
-                <i class="ri-car-line"></i>
-                <span>RentaExpress</span>
-            </div>
+        <nav class="navbar navbar-expand-lg navbar-dark p-0">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center fw-bold fs-3 text-dark" href="#">
+                <i class="fas fa-car"></i>
+                <span class="d-none d-sm-inline">RentaExpress</span>
+            </a>
 
-            <div class="nav-buttons">
-                <button class="nav-btn active">
-                    <i class="ri-car-line"></i>
-                    <span>Inicio</span>
-                </button>
-                <button class="nav-btn">
-                    <i class="ri-car-line"></i>
-                    <span>Renta</span>
-                </button>
-                <button class="nav-btn">
-                    <i class="ri-taxi-line"></i>
-                    <span>Taxi</span>
-                </button>
-                <button class="nav-btn">
-                    <i class="ri-truck-line"></i>
-                    <span>Grúa</span>
-                </button>
-            </div>
+            <!-- Botón hamburguesa -->
+            <button class="navbar-toggler border-0 text-dark" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarContent" aria-controls="navbarContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <i class="ri-menu-line"></i>
+            </button>
 
-            <div class="header-actions">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicarVehiculoModal">
-                    <i class="ri-add-line"></i>
-                    <span>Publicar Vehículo</span>
-                </button>
+            <!-- Contenido colapsable -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Navegación central -->
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a th:href="@{/}" class="fs-6 px-3 text-dark text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-home"></i>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="s-6 px-3 text-dark text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-car-alt "></i>
+                            <span>Renta</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="fs-6 px-3 text-dark text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-taxi"></i>
+                            <span>Taxi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="fs-6 px-3 text-dark text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-truck-loading me-1"></i>
+                            <span>Grúa</span>
+                        </a>
+                    </li>
+                </ul>
 
-                <div class="icon-btn">
-                    <i class="ri-notification-3-line"></i>
-                    <span class="notification-badge">2</span>
+                <!-- Acciones del usuario -->
+                <div class="d-flex align-items-center gap-2">
+                <!-- Botones principales -->
+                <div class="d-none d-md-flex gap-2">
+                    <button th:if="${session.usuario != null}" type="button" class="btn btn-light btn-sm d-flex align-items-center"
+                            data-bs-toggle="modal" data-bs-target="#publicarVehiculoModal">
+                        <i class="fas fa-circle-plus me-1"></i>
+                        <span>Publicar</span>
+                    </button>
                 </div>
 
-                <div class="user-avatar">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="Usuario">
+                <!-- Botones de sesión -->
+                    <div class="d-none d-md-flex gap-2 align-items-center">
+                        <button th:if="${session.usuario == null}" type="button"
+                                class="btn btn-dark btn-sm d-flex align-items-center"
+                                data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="ri-login-box-line me-1"></i>
+                            <span>Ingresar</span>
+                        </button>
+                        <button th:if="${session.usuario == null}" type="button"
+                                class="btn btn-outline-dark btn-sm d-flex align-items-center"
+                                data-bs-toggle="modal" data-bs-target="#agregarModal">
+                            <i class="fas fa-user-plus me-1"></i>
+                            <span>Registrarse</span>
+                        </button>
+                    </div>
+
+                    <!-- Iconos para móvil
+                    <div class="d-flex d-md-none gap-1">
+                        <a th:href="@{/usuario}" class="btn btn-light btn-sm" title="Usuarios">
+                            <i class="ri-user-line"></i>
+                        </a>
+                        <button type="button" class="btn btn-light btn-sm"
+                                data-bs-toggle="modal" data-bs-target="#publicarVehiculoModal"
+                                title="Publicar vehículo">
+                            <i class="ri-add-circle-line"></i>
+                        </button>
+                    </div>
+                    -->
+
+                    <!-- Notificaciones -->
+                    <div class="position-relative">
+                        <button th:if="${session.usuario != null}" class="btn btn-outline-light text-dark btn-sm position-relative">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                2
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Avatar -->
+                    <div class="dropdown w-100">
+                        <button  th:if="${session.usuario != null}" class="btn btn-outline-light btn-sm dropdown-toggle d-flex align-items-center"
+                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80"
+                                 alt="Usuario" class="rounded-circle me-1" width="24" height="24">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end p-3">
+                            <li>
+                                <a  class="btn btn-light btn-sm d-flex align-items-center text-danger">
+                                    <i class="ri-lock-password-line me-1"></i>
+                                    <span th:if="${session.usuario != null}" th:text="${session.usuario.getEmail()}"></span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-light btn-sm d-flex align-items-center"
+                                        data-bs-toggle="modal" data-bs-target="#cambiarContrasenaModal">
+                                    <i class="ri-lock-password-line me-1"></i>
+                                    Cambiar contraseña
+                                </a>
+                            </li>
+                            <li th:if="${session.usuario != null}">
+                                <a th:href="@{/usuario}" class="btn btn-light btn-sm d-flex align-items-center">
+                                    <i class="ri-user-line me-1"></i>
+                                    <span>Gestionar usuarios</span>
+                                </a>
+                            </li>
+                            <li th:if="${session.usuario != null}">
+                                <a class="btn btn-light btn-sm d-flex align-items-center text-danger"
+                                        data-bs-toggle="modal" data-bs-target="#salirModal">
+                                    <i class="ri-logout-box-r-line me-1"></i>
+                                    Salir
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
 </header>
 
-<main class="container">
-    <section class="hero">
-        <div class="hero-icon">
-            <i class="ri-car-line"></i>
-        </div>
-        <h1>Renta de Vehículos</h1>
-        <p>Encuentra el vehículo perfecto para tus necesidades</p>
-    </section>
-
+<main>
     <div class="main-layout">
-        <div th:replace="~{${view} :: content}"> </div>
+        <div th:replace="~{${view} :: content}"></div>
     </div>
 </main>
 
@@ -111,130 +198,494 @@
     </div>
 </footer>
 
-<!-- Modal -->
-<div class="modal fade" id="publicarVehiculoModal" tabindex="-1" aria-labelledby="publicarVehiculoModalLabel" aria-hidden="true">
+<!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="publicarVehiculoModalLabel">Publicar Vehículo</h5>
+        <div class="modal-content shadow-lg rounded-4">
+            <div class="modal-header border-0 pb-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form class="space-y-4">
+            <div class="modal-body p-4">
+                <div class="text-center mb-4">
+                    <i class="ri-login-box-line display-4 text-primary mb-3"></i>
+                    <h2 class="modal-title fw-bold" id="loginModalLabel">Iniciar sesión</h2>
+                    <p class="text-muted">Ingresa a tu cuenta de RentaExpress</p>
+                </div>
+
+                <form th:action="@{/usuario/login}" method="post">
+                    <!-- Usuario -->
                     <div class="mb-3">
-                        <label class="form-label">Categoría</label>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-primary d-flex align-items-center gap-2">
-                                <i class="ri-car-line"></i>
-                                <span>Renta</span>
+                        <label for="username" class="form-label fw-medium">Usuario o correo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="ri-user-line text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" id="username" name="username"
+                                   required placeholder="Tu usuario o correo">
+                        </div>
+                    </div>
+
+                    <!-- Contraseña -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label fw-medium">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="ri-lock-line text-muted"></i>
+                            </span>
+                            <input type="password" class="form-control border-start-0" id="password" name="password"
+                                   required placeholder="********">
+                            <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePassword">
+                                <i class="ri-eye-line"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2">
-                                <i class="ri-taxi-line"></i>
-                                <span>Taxi</span>
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2">
-                                <i class="ri-truck-line"></i>
-                                <span>Grúa</span>
-                            </button>
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="tituloAnuncio" class="form-label">Título del anuncio</label>
-                        <input type="text" class="form-control" id="tituloAnuncio" placeholder="Ej: Honda Civic 2020 - Excelente estado" required>
+                    <!-- Recordarme y Olvidé contraseña -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
+                            <label class="form-check-label small" for="remember-me">
+                                Recuérdame
+                            </label>
+                        </div>
+                        <a href="#" class="small text-decoration-none">¿Olvidaste tu contraseña?</a>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="descripcion" rows="3" maxlength="500" placeholder="Describe tu vehículo, condiciones, requisitos..." required></textarea>
-                        <div class="form-text">0/500 caracteres</div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="precio" class="form-label">Precio</label>
-                            <input type="text" class="form-control" id="precio" placeholder="$50/día" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="ubicacion" class="form-label">Ubicación</label>
-                            <input type="text" class="form-control" id="ubicacion" placeholder="Ciudad, Estado" required>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Características (0 seleccionadas)</label>
-                        <div class="row g-2" style="max-height: 150px; overflow-y: auto;">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Aire Acondicionado</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">GPS</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Bluetooth</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Cámara Reversa</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Asientos de Cuero</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Automático</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Manual</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Combustible Incluido</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Seguro Incluido</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Conductor Incluido</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Grúa 24/7</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Capacidad 5 Ton</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Capacidad 10 Ton</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Plataforma</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Winche</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-sm btn-outline-secondary w-100 mb-1">Cadenas</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="telefono" class="form-label">Teléfono</label>
-                            <input type="tel" class="form-control" id="telefono" placeholder="+1 234 567 8900" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu@email.com" required>
-                        </div>
+                    <!-- Botón -->
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary py-2 fw-medium">
+                            <i class="ri-login-box-line me-2"></i>Ingresar
+                        </button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Publicar</button>
+
+                <!-- Mensaje de error -->
+                <div th:if="${param.error}" class="alert alert-danger mt-3" role="alert">
+                    <i class="ri-error-warning-line me-2"></i>Usuario o contraseña incorrectos.
+                </div>
+
+                <!-- Registro -->
+                <div class="text-center mt-4 pt-3 border-top">
+                    <p class="small text-muted mb-2">¿No tienes cuenta?</p>
+                    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#registroModal" data-bs-dismiss="modal">
+                        Regístrate aquí
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal Agregar -->
+<div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="false" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-3">
+            <!-- Header -->
+            <div class="modal-header border-0 bg-black text-white rounded-top-3">
+                <div class="d-flex align-items-center w-100">
+                    <i class="fas fa-user-plus fa-lg me-3"></i>
+                    <h5 class="modal-title fw-bold mb-0" id="agregarModalLabel">Cuenta nueva</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form th:action="@{/usuario/agregarUsuario}" th:object="${usuario}" method="post">
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <!-- Columna izquierda: Foto con previsualización -->
+                        <div class="col-md-5 border-end">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <div class="image-preview-container mb-3">
+                                        <img id="fotoPreview" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                                             class="img-thumbnail rounded-circle shadow-sm"
+                                             alt="Vista previa"
+                                             style="width: 150px; height: 150px; object-fit: cover;">
+                                    </div>
+
+                                    <label for="fotoInput" class="btn btn-outline-primary btn-sm mb-2">
+                                        <i class="fas fa-camera me-1"></i>Seleccionar Foto
+                                    </label>
+                                    <input type="file" id="fotoInput" class="d-none" accept="image/*">
+
+                                    <div class="mt-2">
+                                        <small class="text-muted">O ingresa una URL</small>
+                                        <input type="text" class="form-control form-control-sm mt-1"
+                                               th:field="*{foto}"
+                                               placeholder="https://ejemplo.com/foto.jpg"
+                                               id="fotoUrl">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha: Campos del formulario -->
+                        <div class="col-md-7">
+                            <div class="row g-3">
+                                <!-- Usuario -->
+                                <div class="col-12">
+                                    <label class="form-label fw-medium">Usuario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-user text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control" th:field="*{usuario}"
+                                               required placeholder="Nombre de usuario">
+                                    </div>
+                                </div>
+
+                                <!-- Nombre -->
+                                <div class="col-12">
+                                    <label class="form-label fw-medium">Nombre Completo</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-id-card text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control" th:field="*{nombre}"
+                                               required placeholder="Nombre completo">
+                                    </div>
+                                </div>
+
+                                <!-- Correo -->
+                                <div class="col-12">
+                                    <label class="form-label fw-medium">Correo Electrónico</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-envelope text-muted"></i>
+                                        </span>
+                                        <input type="email" class="form-control" th:field="*{email}"
+                                               required placeholder="correo@ejemplo.com">
+                                    </div>
+                                </div>
+
+                                <!-- Documento -->
+                                <div class="col-12">
+                                    <label class="form-label fw-medium">Documento</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fas fa-id-badge text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control" th:field="*{documento}"
+                                               required placeholder="Número de documento">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer border-0 bg-light rounded-bottom-3">
+                    <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm px-4">
+                        <i class="fas fa-save me-1"></i>Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal publicar vehiculo-->
+<div class="modal fade" id="publicarVehiculoModal" tabindex="-1" aria-labelledby="publicarVehiculoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="publicarVehiculoModalLabel">Publicar Vehículo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <!-- Categoría -->
+                    <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-primary d-flex align-items-center gap-2 categoria-btn" data-categoria="RENTA">
+                                <i class="ri-car-line"></i>
+                                <span>Renta</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2 categoria-btn" data-categoria="TAXI">
+                                <i class="ri-taxi-line"></i>
+                                <span>Taxi</span>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2 categoria-btn" data-categoria="GRUA">
+                                <i class="ri-truck-line"></i>
+                                <span>Grúa</span>
+                            </button>
+                        </div>
+                        <input type="hidden" id="categoria" name="categoria" required>
+                    </div>
+
+                    <!-- Información Básica -->
+                    <div class="mb-3">
+                        <label for="tituloAnuncio" class="form-label">Título del anuncio</label>
+                        <input type="text" class="form-control" id="tituloAnuncio" name="titulo" placeholder="Ej: Honda Civic 2020 - Excelente estado" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" maxlength="500" placeholder="Describe tu vehículo, condiciones, requisitos..." required></textarea>
+                        <div class="form-text"><span id="contadorCaracteres">0</span>/500 caracteres</div>
+                    </div>
+
+                    <!-- Detalles del Vehículo -->
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="marca" class="form-label">Marca</label>
+                            <input type="text" class="form-control" id="marca" name="marca" placeholder="Honda" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="modelo" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Civic" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="anio" class="form-label">Año</label>
+                            <input type="number" class="form-control" id="anio" name="anio" min="1990" max="2024" placeholder="2020" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="precio" class="form-label">Precio</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="precio" name="precio" step="0.01" placeholder="50.00" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="tipoPrecio" class="form-label">Tipo de precio</label>
+                            <select class="form-select" id="tipoPrecio" name="tipoPrecio" required>
+                                <option value="DIA">Por día</option>
+                                <option value="HORA">Por hora</option>
+                                <option value="SEMANA">Por semana</option>
+                                <option value="MES">Por mes</option>
+                                <option value="VIAJE">Por viaje</option>
+                                <option value="SERVICIO">Por servicio</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="Ciudad, Estado" required>
+                        </div>
+                    </div>
+
+                    <!-- Características -->
+                    <div class="mb-3">
+                        <label class="form-label">Características <span id="contadorCaracteristicas">(0 seleccionadas)</span></label>
+                        <div class="row g-2" style="max-height: 150px; overflow-y: auto;">
+                            <div class="col-6">
+                                <input type="checkbox" class="btn-check caracteristica-check">
+                                <label class="btn btn-sm btn-outline-secondary w-100 mb-1"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Imágenes -->
+                    <div class="mb-3">
+                        <label for="imagenes" class="form-label">Imágenes del vehículo</label>
+                        <input type="file" class="form-control" id="imagenes" name="imagenes" multiple accept="image/*">
+                        <div class="form-text">Máximo 5 imágenes. Formatos: JPG, PNG</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Publicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Script para funcionalidades del modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Manejo de categorías
+        const categoriaBtns = document.querySelectorAll('.categoria-btn');
+        const categoriaInput = document.getElementById('categoria');
+
+        categoriaBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoriaBtns.forEach(b => b.classList.replace('btn-primary', 'btn-outline-secondary'));
+                this.classList.replace('btn-outline-secondary', 'btn-primary');
+                categoriaInput.value = this.dataset.categoria;
+            });
+        });
+
+        // Contador de caracteres
+        const descripcion = document.getElementById('descripcion');
+        const contador = document.getElementById('contadorCaracteres');
+
+        descripcion.addEventListener('input', function() {
+            contador.textContent = this.value.length;
+        });
+
+        // Contador de características
+        const caracteristicasCheck = document.querySelectorAll('.caracteristica-check');
+        const contadorCaracteristicas = document.getElementById('contadorCaracteristicas');
+
+        caracteristicasCheck.forEach(check => {
+            check.addEventListener('change', function() {
+                const seleccionadas = document.querySelectorAll('.caracteristica-check:checked').length;
+                contadorCaracteristicas.textContent = `(${seleccionadas} seleccionadas)`;
+            });
+        });
+    });
+</script>
+
+<!-- Modal cerrar sesion -->
+<div class="modal fade" id="salirModal" tabindex="-1" aria-labelledby="salirModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-3">
+            <!-- Header -->
+            <div class="modal-header border-0 bg-black text-white rounded-top-3">
+                <div class="d-flex align-items-center w-100">
+                    <i class="fas fa-door-open fa-lg me-3"></i>
+                    <h5 class="modal-title fw-bold mb-0" id="salirModalLabel">Cerrar Sesión</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body text-center py-2">
+                <div class="mb-3">
+                    <i class="fas fa-sign-out-alt display-6 text-warning mb-1"></i>
+                </div>
+                <h6 class="fw-semibold mb-2">¿Estás seguro de que quieres salir?</h6>
+                <p class="text-muted mb-0">Serás redirigido a la página principal</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 bg-light rounded-bottom-3">
+                <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancelar
+                </button>
+                <a th:href="@{/usuario/logout}" class="btn btn-danger btn-sm px-4 text-decoration-none">
+                    <i class="fas fa-sign-out-alt me-2"></i>Salir
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Cambiar Contraseña -->
+<div class="modal fade transparencia" id="cambiarContrasenaModal" tabindex="-1" aria-labelledby="cambiarContrasenaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-3">
+            <!-- Header -->
+            <div class="modal-header border-0 bg-black text-white rounded-top-3">
+                <div class="d-flex align-items-center w-100">
+                    <i class="fas fa-lock fa-lg me-3"></i>
+                    <h5 class="modal-title fw-bold mb-0" id="cambiarContrasenaModalLabel">Cambiar contraseña</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body py-3">
+                <form id="formCambiarContrasena">
+                    <!-- Contraseña Actual -->
+                    <div class="mb-3 p-3">
+                        <label for="contrasenaActual" class="form-label fw-medium">Contraseña Actual</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fas fa-key text-muted"></i>
+                            </span>
+                            <input type="password" class="form-control border-start-0" id="contrasenaActual" placeholder="Ingresa tu contraseña actual" required>
+                            <button class="btn btn-outline-secondary border-start-0 toggle-password" type="button" data-target="contrasenaActual">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Nueva Contraseña -->
+                    <div class="mb-3 p-3">
+                        <label for="nuevaContrasena" class="form-label fw-medium">Nueva Contraseña</label>
+                        <div class="input-group" >
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fas fa-lock text-muted"></i>
+                            </span>
+                            <input type="password" class="form-control border-start-0" id="nuevaContrasena" placeholder="Ingresa tu nueva contraseña" required>
+                            <button class="btn btn-outline-secondary border-start-0 toggle-password" type="button" data-target="nuevaContrasena">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-text small">
+                            <i class="fas fa-info-circle me-1"></i>
+                            La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.
+                        </div>
+                    </div>
+
+                    <!-- Confirmar Contraseña -->
+                    <div class="mb-3 p-3">
+                        <label for="confirmarContrasena" class="form-label fw-medium">Confirmar Nueva Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i class="fas fa-lock text-muted"></i>
+                            </span>
+                            <input type="hidden" name="id" id="password_id">
+
+                            <input type="password" class="form-control border-start-0" id="confirmarContrasena" placeholder="Confirma tu nueva contraseña" required>
+                            <button class="btn btn-outline-secondary border-start-0 toggle-password" type="button" data-target="confirmarContrasena">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="contrasenaMatch" class="form-text small"></div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 bg-light rounded-bottom-3">
+                <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancelar
+                </button>
+                <button type="button" class="btn btn-dark btn-sm px-4" id="btnGuardarContrasena">
+                    <i class="fas fa-save me-1"></i>Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="eliminarModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-3">
+            <!-- Header -->
+            <div class="modal-header border-0 bg-black text-white rounded-top-3">
+                <div class="d-flex align-items-center w-100">
+                    <i class="fas fa-trash fa-lg me-3"></i>
+                    <h5 class="modal-title fw-bold mb-0" id="eliminarModalLabel">Eliminar Usuario</h5>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body text-center p-2">
+                <div class="m-2">
+                    <i class="fas fa-exclamation-triangle display-6 text-warning mb-3"></i>
+                </div>
+                <h6 class="fw-semibold mb-2">¿Estás seguro de eliminar este usuario?</h6>
+                <p class="text-muted mb-0">Esta acción no se puede deshacer</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 bg-light rounded-bottom-3">
+                <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Cancelar
+                </button>
+                <form th:action="@{/usuarios/eliminar}" method="post" class="d-inline">
+                    <input type="hidden" name="id" id="deleteId">
+                    <button type="submit" class="btn btn-danger btn-sm px-4">
+                        <i class="fas fa-trash me-1"></i>Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="toast-container" class="toast-container position-fixed top-0 start-50 trasnlate-middle-x p-3"
      style="z-index: 1111; display: none; width: 40%"></div>

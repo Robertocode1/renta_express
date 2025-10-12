@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@ToString(exclude = {"rol", "estado"})
+@ToString()
 @Getter
 @Setter
 @Entity
@@ -38,12 +38,12 @@ public class Usuario {
     @Column(name = "contrasenha", nullable = false)
     private String contrasenha;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "id_estado", nullable = false)
     private Estado estado;

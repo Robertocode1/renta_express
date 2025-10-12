@@ -1,83 +1,125 @@
-// Funcionalidad para los botones de navegación
-document.querySelectorAll('.nav-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        this.classList.add('active');
-    });
-});
+//funcion para modal login
+document.getElementById('togglePassword').addEventListener('click', function() {
+    const passwordInput = document.getElementById('password');
+    const icon = this.querySelector('i');
 
-// Funcionalidad para los botones de contacto
-document.querySelectorAll('.contact-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const card = this.closest('.vehicle-card');
-        const title = card.querySelector('.vehicle-title').textContent;
-        const price = card.querySelector('.vehicle-price').textContent;
-        alert(`Contactando al propietario para: ${title} (${price})`);
-    });
-});
-
-// Funcionalidad para los elementos del sidebar
-document.querySelectorAll('.sidebar-item').forEach(item => {
-    item.addEventListener('click', function() {
-        const title = this.querySelector('.item-title').textContent;
-        console.log(`Elemento seleccionado: ${title}`);
-    });
-});
-
-// Funcionalidad para los elementos de usuario
-document.querySelectorAll('.user-item').forEach(item => {
-    item.addEventListener('click', function() {
-        const name = this.querySelector('.user-name').textContent;
-        console.log(`Usuario seleccionado: ${name}`);
-    });
-});
-
-// Funcionalidad para las acciones rápidas
-document.querySelectorAll('.action-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const action = this.querySelector('.action-text').textContent;
-        alert(`Acción: ${action}`);
-    });
-});
-
-// Funcionalidad para el botón de publicar vehículo
-document.querySelector('.publish-btn').addEventListener('click', function() {
-    alert('Redirigiendo a formulario para publicar vehículo');
-});
-
-// Funcionalidad para la búsqueda
-const searchInput = document.querySelector('.search-input input');
-searchInput.addEventListener('keyup', function(e) {
-    if (e.key === 'Enter') {
-        performSearch();
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.className = 'ri-eye-off-line';
+    } else {
+        passwordInput.type = 'password';
+        icon.className = 'ri-eye-line';
     }
 });
 
-// Funcionalidad para el filtro de ubicación
-const locationSelect = document.querySelector('.location-select select');
-locationSelect.addEventListener('change', function() {
-    performSearch();
+// Script para mostrar/ocultar contraseña en el modal de cambiar contraseña
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const passwordInput = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    });
 });
 
-function performSearch() {
-    const searchTerm = searchInput.value;
-    const location = locationSelect.value;
+// Validación de coincidencia de contraseñas en el modal de cambiar contraseña
+document.getElementById('confirmarContrasena').addEventListener('input', function() {
+    const nuevaContrasena = document.getElementById('nuevaContrasena').value;
+    const confirmarContrasena = this.value;
+    const matchText = document.getElementById('contrasenaMatch');
 
-    console.log(`Buscando: "${searchTerm}" en ubicación: ${location}`);
-    // Aquí iría la lógica para filtrar los resultados
-}
-
-// Funcionalidad para el filtro de ordenamiento
-const sortSelect = document.querySelector('.sort-select select');
-sortSelect.addEventListener('change', function() {
-    console.log(`Ordenando por: ${this.value}`);
-    // Aquí iría la lógica para ordenar los resultados
+    if (confirmarContrasena) {
+        if (nuevaContrasena === confirmarContrasena) {
+            matchText.innerHTML = '<i class="fas fa-check text-success me-1"></i>Las contraseñas coinciden';
+            matchText.className = 'form-text small text-success';
+        } else {
+            matchText.innerHTML = '<i class="fas fa-times text-danger me-1"></i>Las contraseñas no coinciden';
+            matchText.className = 'form-text small text-danger';
+        }
+    } else {
+        matchText.innerHTML = '';
+    }
 });
 
-// Funcionalidad para el menú móvil (si se implementa)
+//---------------------modal agregar usuario o registrarse----------------
+
+// Previsualización de imagen desde archivo
+document.getElementById('fotoInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('fotoPreview').src = e.target.result;
+            document.getElementById('fotoUrl').value = ''; // Limpiar URL si se sube archivo
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Previsualización de imagen desde URL
+document.getElementById('fotoUrl').addEventListener('input', function(e) {
+    const url = e.target.value;
+    if (url) {
+        document.getElementById('fotoPreview').src = url;
+        document.getElementById('fotoInput').value = ''; // Limpiar file input si se usa URL
+    } else {
+        document.getElementById('fotoPreview').src = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    }
+});
+
+// Click en la imagen también abre el selector de archivos
+document.getElementById('fotoPreview').addEventListener('click', function() {
+    document.getElementById('fotoInput').click();
+});
+
+// Método para asignar id al modal
 document.addEventListener('DOMContentLoaded', function() {
-    // Aquí se puede agregar la funcionalidad para el menú móvil
-    console.log('Página cargada correctamente');
+    const deleteModal = document.getElementById('eliminarModal');
+
+    deleteModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget; // Botón que activó el modal
+        const userId = button.getAttribute('data-user-id');
+
+        if (userId) {
+            document.getElementById('deleteId').value = userId;
+            console.log('ID establecido para eliminar:', userId);
+        }
+    });
 });
+
+// Método para asignar id al modal
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteModal = document.getElementById('cambiarContrasenaModal');
+
+    deleteModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget; // Botón que activó el modal
+        const userId = button.getAttribute('data-user-id');
+
+        if (userId) {
+            document.getElementById('password_id').value = userId;
+            console.log('ID establecido para eliminar:', userId);
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

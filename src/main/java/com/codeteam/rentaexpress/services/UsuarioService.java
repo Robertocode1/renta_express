@@ -26,7 +26,7 @@ public class UsuarioService {
     private final EstadoRepository estadoRepo;
     private final RolRepository rolRepo;
     private final UsuarioRepository usuarioRepo;
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final SecureRandom random = new SecureRandom();
     private final EmailService emailService;
 
@@ -56,6 +56,15 @@ public class UsuarioService {
         catch (Exception e){
             return 0;
         }
+    }
+
+    public  Usuario autenticarUsuario(String usuario, String contrasenha){
+        Optional<Usuario> usuarioOptional = usuarioRepo.findByUsuario(usuario);
+        if (usuarioOptional.isPresent() && BCrypt.checkpw(contrasenha, usuarioOptional.get().getContrasenha()) && usuarioOptional.get().getEstado().getId() == 1)
+        {
+            return usuarioOptional.get();
+        }
+        return null;
     }
 
     //Funcion para actualizar usuario
@@ -98,6 +107,7 @@ public class UsuarioService {
         return usuarioRepo.save(usuarioEx);
 
     }
+
     //Listar todos los usuarios
     @Transactional(readOnly = true)
     public List<Usuario> listarUsuarios() {
@@ -127,21 +137,54 @@ public class UsuarioService {
     }
 
     //Cambiar contrasenha de usuario
-    public Usuario cambiarPassword(Integer id, String password) {
-        Assert.notNull(id, "El id es obligatorio");
-        Assert.hasText(password, "La contrasena es obligatoria");
+//    public Usuario cambiarPassword(Integer id, String password) {
+//        Assert.notNull(id, "El id es obligatorio");
+//        Assert.hasText(password, "La contrasena es obligatoria");
+//
+//        if(!usuarioRepo.existsById(id)){
+//            throw new IllegalArgumentException("El usuario no existe");
+//        }
+//        Usuario usuario = usuarioRepo.findById(id).get();
+//        String contraActual = usuario.getContrasenha();
+//
+//        /*if(password.length() < 8){
+//            throw new IllegalArgumentException("La contrasena no puede tener 8 caracteres");
+//        }*/
+//        usuario.setContrasenha(password);
+//        return usuarioRepo.save(usuario);
+//    }
 
-        if(!usuarioRepo.existsById(id)){
+    // Cambiar contraseña de usuario (con validación segura)
+    public void cambiarContrasenha(Integer id, String currentPassword, String newPassword) {
+        Assert.notNull(id, "El id no puede ser nulo");
+        Assert.hasText(currentPassword, "La contraseña actual no puede estar vacía");
+        Assert.hasText(newPassword, "La nueva contraseña no puede estar vacía");
+
+        if (!usuarioRepo.existsById(id)) {
             throw new IllegalArgumentException("El usuario no existe");
         }
-        Usuario usuario = usuarioRepo.findById(id).get();
-        String contraActual = usuario.getContrasenha();
 
-        /*if(password.length() < 8){
-            throw new IllegalArgumentException("La contrasena no puede tener 8 caracteres");
-        }*/
-        usuario.setContrasenha(password);
-        return usuarioRepo.save(usuario);
+        Usuario usuario = usuarioRepo.findById(id).orElseThrow();
+
+        // 1. Validar que la contraseña actual es correcta
+        if (!BCrypt.checkpw(currentPassword, usuario.getContrasenha())) {
+            throw new IllegalArgumentException("La contraseña actual no es correcta");
+        }
+
+        // 2. Validar que la nueva contraseña no sea igual a la actual (en texto claro)
+        if (BCrypt.checkpw(newPassword, usuario.getContrasenha())) {
+            throw new IllegalArgumentException("La nueva contraseña no puede ser igual a la actual");
+        }
+
+        // 3. Validar longitud mínima
+        if (newPassword.length() < 8) {
+            throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres");
+        }
+
+        // 4. Encriptar y guardar
+        String nuevaContrasenhaEncriptada = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        usuario.setContrasenha(nuevaContrasenhaEncriptada);
+        usuarioRepo.save(usuario);
     }
 
     //METODOS INTERNOS PARA VALIDACIONES
