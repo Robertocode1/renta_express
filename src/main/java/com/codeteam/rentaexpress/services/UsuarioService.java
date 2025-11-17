@@ -1,6 +1,5 @@
 package com.codeteam.rentaexpress.services;
 
-
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -8,10 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.codeteam.rentaexpress.repositories.UsuarioRepository;
 import com.codeteam.rentaexpress.models.Usuario;
 import com.codeteam.rentaexpress.repositories.RolRepository;
-import com.codeteam.rentaexpress.models.Rol;
 import com.codeteam.rentaexpress.repositories.EstadoRepository;
-import com.codeteam.rentaexpress.models.Estado;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,17 +27,25 @@ public class UsuarioService {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final SecureRandom random = new SecureRandom();
     private final EmailService emailService;
+    private final FileUpLoadService fileUpLoadService;
 
     //Funcion para agregar un usuario nuevo
-    public int agregarUsuario(Usuario usuario) {
+    public int agregarUsuario(Usuario usuario, MultipartFile fotoUsuario) {
         Assert.notNull(usuario, "El usuario no puede ser nulo.");
         validarUsuario(usuario.getUsuario());
         validarEmail(usuario.getEmail());
 
+        //Para la foto
+        String rutaFoto = fileUpLoadService.saveImage(fotoUsuario, usuario.getUsuario(), "usuarios");
+        if (rutaFoto != null) {
+            usuario.setFoto(rutaFoto);
+        }
 
         //VALORES POR DEFECTO
-        usuario.setRol(new Rol(2,"Usuario")); // 2 = Usuario normal
-        usuario.setEstado(new Estado(1, "Activo")); // 1 = Activo
+        if(usuario.getRol() == null){
+            usuario.setRol(rolRepo.findById(2).orElseThrow()); // 2 = Usuario normal
+        }
+        usuario.setEstado(estadoRepo.findById(1).orElseThrow()); // 1 = Activo
         usuario.setFechaCreacion(LocalDateTime.now());
 
         String password = generarPassword();
@@ -58,6 +64,7 @@ public class UsuarioService {
         }
     }
 
+    //Funcion para autenticar usuario
     public  Usuario autenticarUsuario(String usuario, String contrasenha){
         Optional<Usuario> usuarioOptional = usuarioRepo.findByUsuario(usuario);
         if (usuarioOptional.isPresent() && BCrypt.checkpw(contrasenha, usuarioOptional.get().getContrasenha()) && usuarioOptional.get().getEstado().getId() == 1)
@@ -68,12 +75,10 @@ public class UsuarioService {
     }
 
     //Funcion para actualizar usuario
-    public Usuario actualizarUsuario(Usuario usuario, Integer id) {
-        //Validar que los parametros no vengas nulos
+    public int actualizarUsuario(Usuario usuario, Integer id , MultipartFile fotoUsuario) {
         Assert.notNull(usuario, "El usuario no puede ser nulo.");
         Assert.notNull(id, "El id no puede ser nulo.");
 
-        //Validar que existe un usuario con ese id
         Usuario usuarioEx = usuarioRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
 
         //Ya qeu si existe usuario hacer las demas validaciones de nulos
@@ -81,31 +86,53 @@ public class UsuarioService {
         Assert.hasText(usuario.getEmail(), "El email no puede ser nulo.");
         Assert.hasText(usuario.getDocumento(), "El documento no puede ser nulo.");
         Assert.hasText(usuario.getNombre(),  "El nombre no puede ser nulo.");
-        Assert.notNull(usuario.getRol(), "El rol no puede ser nulo.");
-        Assert.notNull(usuario.getEstado(), "El estado no puede ser nulo.");
 
         //Validar si ya existe un usuario (solo si cambió el nombre de usuario)
         if (!usuarioEx.getUsuario().equals(usuario.getUsuario())) {
             if (usuarioRepo.existsByUsuario(usuario.getUsuario())) {
-                throw new IllegalArgumentException("El nombre de usuario '" + usuario.getUsuario() + "' ya está en uso");
+                //throw new IllegalArgumentException("El nombre de usuario '" + usuario.getUsuario() + "' ya está en uso");
+                return 0; // El usuario ya existe
             }
         }
-
         // Validar email (solo si cambió el email)
         if (!usuarioEx.getEmail().equalsIgnoreCase(usuario.getEmail())) {
             if (usuarioRepo.existsByEmail(usuario.getEmail())) {
-                throw new IllegalArgumentException("El email: " + usuario.getEmail() + " ya está asignado a otra cuenta.");
+                //throw new IllegalArgumentException("El email: " + usuario.getEmail() + " ya está asignado a otra cuenta.");
+                return 2; // El email ya está en uso
             }
         }
+        // LÓGICA DE FOTOS
+        String fotoAntigua = usuarioEx.getFoto();
+        String rutaFotoNueva = null;
 
+        if (fotoUsuario != null && !fotoUsuario.isEmpty()) {
+            rutaFotoNueva = fileUpLoadService.saveImage(fotoUsuario, usuario.getUsuario(), "usuarios");
+            if (rutaFotoNueva != null) {
+                usuarioEx.setFoto(rutaFotoNueva);
+            }
+        }
+        System.out.println("Rol es" + usuarioEx.getRol().getNombre());
         usuarioEx.setUsuario(usuario.getUsuario());
         usuarioEx.setEmail(usuario.getEmail());
         usuarioEx.setNombre(usuario.getNombre());
-        usuarioEx.setRol(usuario.getRol());
-        usuarioEx.setEstado(usuario.getEstado());
+        if(usuario.getRol() != null){
+            usuarioEx.setRol(rolRepo.findById(usuario.getRol().getId()).orElseThrow()); // 2 = Usuario normal
+        }
 
-        return usuarioRepo.save(usuarioEx);
-
+        try {
+            usuarioRepo.save(usuarioEx);
+            if (rutaFotoNueva != null && fotoAntigua != null && !fotoAntigua.contains("default_user_img.jpg")) {
+                try {
+                    fileUpLoadService.deleteImage(fotoAntigua);
+                } catch (Exception e) {
+                    System.err.println("No se pudo borrar el archivo antiguo: " + fotoAntigua);
+                }
+            }
+            return 1; // El usuario se actualizó correctamente
+        }
+        catch (Exception e){
+            return 0; // El usuario no se actualizó.
+        }
     }
 
     //Listar todos los usuarios
@@ -120,6 +147,18 @@ public class UsuarioService {
         return usuarioRepo.findByEstadoNombre("activo");
     }
 
+    //Buscar usuarios por id
+    @Transactional(readOnly = true)
+    public Optional<Usuario> buscarUsuarioPorId(Integer id) {
+        Assert.notNull(id, "El id no puede ser nulo");
+        try {
+            return usuarioRepo.findById(id);
+        }
+        catch (Exception e){
+            return Optional.empty();
+        }
+    }
+
     //Buscar usuarios por email
     @Transactional(readOnly = true)
     public Optional<Usuario> buscarUsuarioPorEmail(String email) {
@@ -128,37 +167,38 @@ public class UsuarioService {
     }
 
     //Eliminar usuario por id
-    public void eliminarUsuario(Integer id) {
+    public int eliminarUsuario(Integer id) {
         Assert.notNull(id, "El id no puede ser nulo");
         if(!usuarioRepo.existsById(id)){
             throw new IllegalArgumentException("El usuario no existe");
         }
-        usuarioRepo.deleteById(id);
+        try{
+            Usuario usuarioEx = usuarioRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
+            usuarioEx.setEstado(estadoRepo.findById(2).orElseThrow()); // 1 = Inactivo
+            usuarioRepo.save(usuarioEx);
+            return 1; // Cuenta desactivada
+        }catch (Exception e){
+            return 0; // Cuenta no desactivada
+        }
     }
 
-    //Cambiar contrasenha de usuario
-//    public Usuario cambiarPassword(Integer id, String password) {
-//        Assert.notNull(id, "El id es obligatorio");
-//        Assert.hasText(password, "La contrasena es obligatoria");
-//
-//        if(!usuarioRepo.existsById(id)){
-//            throw new IllegalArgumentException("El usuario no existe");
-//        }
-//        Usuario usuario = usuarioRepo.findById(id).get();
-//        String contraActual = usuario.getContrasenha();
-//
-//        /*if(password.length() < 8){
-//            throw new IllegalArgumentException("La contrasena no puede tener 8 caracteres");
-//        }*/
-//        usuario.setContrasenha(password);
-//        return usuarioRepo.save(usuario);
-//    }
+    //Verificar contraseña actual
+    public boolean verificarPasswordActual(Integer id, String passwordPlana) {
+
+        Usuario usuario = usuarioRepo.findById(id).orElse(null);
+
+        if (usuario == null) {
+            return false;
+        }
+        return BCrypt.checkpw(passwordPlana, usuario.getContrasenha());
+    }
 
     // Cambiar contraseña de usuario (con validación segura)
-    public void cambiarContrasenha(Integer id, String currentPassword, String newPassword) {
+    public int cambiarPassword(Integer id, String contrasenaActual,
+                               String nuevaContrasena, String confirmarContrasena) {
         Assert.notNull(id, "El id no puede ser nulo");
-        Assert.hasText(currentPassword, "La contraseña actual no puede estar vacía");
-        Assert.hasText(newPassword, "La nueva contraseña no puede estar vacía");
+        Assert.hasText(contrasenaActual, "La contraseña actual no puede estar vacía");
+        Assert.hasText(nuevaContrasena, "La nueva contraseña no puede estar vacía");
 
         if (!usuarioRepo.existsById(id)) {
             throw new IllegalArgumentException("El usuario no existe");
@@ -167,24 +207,70 @@ public class UsuarioService {
         Usuario usuario = usuarioRepo.findById(id).orElseThrow();
 
         // 1. Validar que la contraseña actual es correcta
-        if (!BCrypt.checkpw(currentPassword, usuario.getContrasenha())) {
-            throw new IllegalArgumentException("La contraseña actual no es correcta");
+        if (!BCrypt.checkpw(contrasenaActual, usuario.getContrasenha())) {
+            return 3; // La contraseña actual es incorrecta
+        }
+
+        // validar que las contrasenas nuevas coincidan
+        if (!nuevaContrasena.equals(confirmarContrasena)) {
+            return 2; // Las contraseñas no coinciden
         }
 
         // 2. Validar que la nueva contraseña no sea igual a la actual (en texto claro)
-        if (BCrypt.checkpw(newPassword, usuario.getContrasenha())) {
-            throw new IllegalArgumentException("La nueva contraseña no puede ser igual a la actual");
+        if (BCrypt.checkpw(nuevaContrasena, usuario.getContrasenha())) {
+            return 0; // La nueva contraseña es la misma que la actual
         }
 
         // 3. Validar longitud mínima
-        if (newPassword.length() < 8) {
-            throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres");
+//        if (newPassword.length() < 8) {
+//            throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres");
+//        }
+
+        // 4. Encriptar la nueva contraseña
+        String nuevaContrasenhaEncriptada = BCrypt.hashpw(confirmarContrasena, BCrypt.gensalt());
+        usuario.setContrasenha(nuevaContrasenhaEncriptada);
+        try {
+            usuarioRepo.save(usuario);
+            return 1; // La contraseña se actualizó correctamente
+        } catch (Exception e){
+            return 4; // La contraseña no se actualizó.
+        }
+    }
+
+    // reset contraseña de usuario
+    public int resetPassword(Integer id) {
+        Assert.notNull(id, "El id no puede ser nulo");
+
+        if (!usuarioRepo.existsById(id)) {
+            return 0; //El usuario no existe
         }
 
-        // 4. Encriptar y guardar
-        String nuevaContrasenhaEncriptada = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-        usuario.setContrasenha(nuevaContrasenhaEncriptada);
-        usuarioRepo.save(usuario);
+        Usuario usuario = usuarioRepo.findById(id).orElseThrow();
+        if(usuario.getEstado().getId() != 1){
+            return 2; //Usuario desactivado
+        }
+
+        String password = generarPassword();
+        emailService.sendEmail(usuario.getEmail(), "Restablecer contraseña", "Hola, " + usuario.getUsuario() + " su contraseña es: " + password);
+
+        usuario.setContrasenha(BCrypt.hashpw(password, BCrypt.gensalt()));
+        try {
+            usuarioRepo.save(usuario);
+            return 1; // La contraseña se actualizó correctamente
+        } catch (Exception e){
+            return 3; // La contraseña no se actualizó.
+        }
+    }
+
+    //solicitar password por email
+    @Transactional
+    public int procesarSolicitudPorEmail(String email) {
+        Optional<Usuario> optUsuario = usuarioRepo.findByEmail(email);
+        if (!optUsuario.isPresent()) {
+            return 0; // 0 = Usuario no existe
+        }
+        Usuario usuario = optUsuario.get();
+        return this.resetPassword(usuario.getId());
     }
 
     //METODOS INTERNOS PARA VALIDACIONES
@@ -221,6 +307,7 @@ public class UsuarioService {
         }
     }
 
+    //Generar contrasenas
     private static String generarPassword(){
         StringBuilder password = new StringBuilder(8);
         for(int i = 0; i < 8; i++){

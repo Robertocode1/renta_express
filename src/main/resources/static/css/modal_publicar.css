@@ -1,0 +1,68 @@
+.image-preview-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.preview-slot {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border: 2px dashed #dce0e4;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+
+.preview-slot .icon {
+    font-size: 2rem;
+    color: #adb5bd;
+}
+
+.preview-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-img-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.preview-slot:hover .remove-img-btn {
+    opacity: 1;
+}
+
+.upload-label {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.upload-label:hover {
+    background-color: #e9ecef;
+}
+
+.form-section-divider {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}

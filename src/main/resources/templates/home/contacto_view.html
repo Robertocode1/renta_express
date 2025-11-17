@@ -1,0 +1,77 @@
+<div th:fragment="content" class="container-fluid px-5">
+    <!-- Migas de pan (Breadcrumbs) -->
+    <nav aria-label="breadcrumb" class="mb-4 mt-4">
+        <ol class="breadcrumb small text-muted">
+            <li class="breadcrumb-item"><a th:href="@{/}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contacto</li>
+        </ol>
+    </nav>
+
+    <!-- Título de la sección -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">Ponte en Contacto con Nosotros</h2>
+        <p class="text-muted">Estamos aquí para ayudarte. Completa el formulario y te responderemos a la brevedad.</p>
+    </div>
+
+    <!-- Contenedor del formulario -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4 p-lg-5 shadow-sm">
+                <form th:action="@{/contactos/agregarContacto}" th:object="${contacto}"  method="post">
+
+                    <!-- Campo: Nombre Completo -->
+                    <div class="mb-3">
+                        <label for="nombreContacto" class="form-label">Nombre Completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="ri-user-line text-primary"></i></span>
+                            <input type="text" th:field="*{nombre}" class="form-control" id="nombreContacto" name="nombreContacto" placeholder="Escribe tu nombre y apellido" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Campo: Teléfono-->
+                        <div class="col-md-6 mb-3">
+                            <label for="telefonoContacto" class="form-label">Teléfono</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ri-phone-line text-primary"></i></span>
+                                <input type="tel" th:field="*{telefono}" class="form-control" id="telefonoContacto" name="telefonoContacto" placeholder="7567 8900" required>
+                            </div>
+                        </div>
+
+                        <!-- Campo: Correo Electrónico -->
+                        <div class="col-md-6 mb-3">
+                            <label for="correo" class="form-label">Correo Electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="ri-at-line text-primary"></i></span>
+                                <input type="email" th:field="*{correo}" class="form-control" id="correo" name="correo" placeholder="tu.correo@ejemplo.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Asunto -->
+                    <div class="mb-3">
+                        <label for="asunto" class="form-label">Asunto</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="ri-question-line text-primary"></i></span>
+                            <input type="text" th:field="*{asunto}" class="form-control" id="asunto" name="asunto" placeholder="Motivo de tu consulta" required>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Mensaje -->
+                    <div class="mb-4">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea class="form-control" th:field="*{mensaje}" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+
+                    <!-- Botón de Envío -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="ri-send-plane-line me-2"></i>Enviar Mensaje
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

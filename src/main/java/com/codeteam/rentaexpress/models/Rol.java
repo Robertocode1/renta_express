@@ -21,9 +21,4 @@ public class Rol {
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
-    public Rol(Integer id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
 }

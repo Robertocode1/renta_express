@@ -244,7 +244,7 @@ header {
 
 .location-select::after {
     content: "\ea4e";
-    font-family: remixicon;
+    font-family: remixicon, sans-serif;
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -347,7 +347,7 @@ header {
 /* Vehicles Grid */
 .vehicles-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-bottom: 3rem;
 }
@@ -386,10 +386,10 @@ header {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(4px);
     padding: 0.3rem 0.8rem;
-    border-radius: 50px;
+    border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
     display: flex;
@@ -403,7 +403,7 @@ header {
 }
 
 .vehicle-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--gray-800);
@@ -501,8 +501,8 @@ header {
 }
 
 .vehicle-price {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 100;
     color: var(--primary);
     margin-bottom: 0.3rem;
 }
@@ -521,259 +521,6 @@ header {
 
 .contact-btn:hover {
     background-color: var(--primary-dark);
-}
-
-/* Sidebar */
-.sidebar {
-    width: 320px;
-    flex-shrink: 0;
-
-}
-
-.sidebar-section {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--shadow);
-}
-
-.sidebar-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 1.2rem;
-}
-
-.sidebar-icon {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-}
-
-.sidebar-icon.red {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--danger);
-}
-
-.sidebar-icon.yellow {
-    background-color: rgba(245, 158, 11, 0.1);
-    color: var(--warning);
-}
-
-.sidebar-icon.blue {
-    background-color: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
-}
-
-.sidebar-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--gray-800);
-}
-
-.sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.8rem 0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    border-radius: 8px;
-}
-
-.sidebar-item:hover {
-    background-color: var(--gray-50);
-}
-
-.item-rank {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 600;
-    flex-shrink: 0;
-}
-
-.item-rank.red {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--danger);
-}
-
-.item-rank.yellow {
-    background-color: rgba(245, 158, 11, 0.1);
-    color: var(--warning);
-}
-
-.item-rank.blue {
-    background-color: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
-}
-
-.item-image {
-    width: 45px;
-    height: 45px;
-    border-radius: 8px;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.item-info {
-    flex-grow: 1;
-    min-width: 0;
-}
-
-.item-title {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gray-800);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.2rem;
-}
-
-.item-price {
-    font-size: 0.8rem;
-    color: var(--gray-600);
-}
-
-.item-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.8rem;
-    color: var(--gray-600);
-}
-
-.user-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.8rem 0;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    border-radius: 8px;
-}
-
-.user-item:hover {
-    background-color: var(--gray-50);
-}
-
-.user-avatar-small {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.user-avatar-small img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.user-info {
-    flex-grow: 1;
-    min-width: 0;
-}
-
-.user-name {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gray-800);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.2rem;
-}
-
-.user-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.8rem;
-    color: var(--gray-600);
-}
-
-.rating-count {
-    color: var(--gray-400);
-}
-
-.quick-actions {
-    background: linear-gradient(135deg, #eff6ff 0%, #eef2ff 100%);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-}
-
-.action-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 8px;
-    margin-bottom: 0.8rem;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    width: 100%;
-    text-align: left;
-}
-
-.action-btn:last-child {
-    margin-bottom: 0;
-}
-
-.action-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.action-icon {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-}
-
-.action-icon.green {
-    background-color: rgba(16, 185, 129, 0.1);
-    color: var(--success);
-}
-
-.action-icon.blue {
-    background-color: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
-}
-
-.action-icon.purple {
-    background-color: rgba(139, 92, 246, 0.1);
-    color: #8b5cf6;
-}
-
-.action-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gray-800);
 }
 
 /* Trust Section */
@@ -906,6 +653,7 @@ header {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
+
 .icon-wrapper {
     display: inline-flex;
     align-items: center;
@@ -918,4 +666,65 @@ header {
 .transparencia {
     background-color: rgba(255, 255, 255, 0.4) !important;
     backdrop-filter: blur(10px);
+}
+
+/* Estilo para el botón con fondo transparente por defecto */
+.btn-transparent {
+    background-color: transparent; /* Fondo completamente transparente */
+    border-color: transparent; /* Borde transparente */
+    color: #212529; /* Color de texto por defecto (oscuro), puedes cambiarlo */
+    transition: all 0.2s ease-in-out; /* Transición suave para el hover/focus */
+}
+
+/* Estilo para el botón cuando se pasa el mouse encima (hover) o se enfoca */
+.btn-transparent:hover,
+.btn-transparent:focus {
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo blanco con 15% de opacidad */
+    border-color: rgba(255, 255, 255, 0.3); /* Borde blanco con 30% de opacidad (opcional) */
+    color: #212529; /* Color del texto en hover/focus (blanco) */
+    text-decoration: none; /* Elimina subrayado si es un enlace */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra opcional para resaltar el estado hover */
+}
+
+/* Etiqueta de "Principal" para la primera imagen */
+.preview-slot .main-tag {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    z-index: 2; /* Asegura que esté sobre la imagen */
+}
+
+
+/* =========================================
+   ESTADO "NO LEÍDO" DEL INBOX
+   ========================================= */
+
+/* Esto hará que el item "no leído" tenga un fondo azul
+  claro (el de Bootstrap) y el texto en negrita.
+*/
+.list-group-item.inbox-item-unread {
+    background-color: #e6f7ff; /* Un azul muy claro */
+    font-weight: bold;
+}
+
+/* Cuando esté activo Y no leído,
+  mantenemos el estilo de "activo"
+*/
+.list-group-item.inbox-item-unread.active {
+    background-color: var(--bs-primary);
+    color: white;
+    font-weight: bold;
+}
+
+/* Sobreescribimos el color del texto de "Tú:"
+  para que no se pierda cuando esté activo
+*/
+.list-group-item.inbox-item-unread.active .text-primary {
+    color: #cceeff !important;
 }

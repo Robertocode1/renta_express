@@ -27,7 +27,9 @@ public class Permisos implements Filter{
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
 
-        String path = httpRequest.getRequestURI();
+        //String path = httpRequest.getRequestURI();
+        String path = httpRequest.getServletPath();
+
 
         // Rutas públicas (sin necesidad de login)
         if (isPublicPath(path)) {
@@ -59,14 +61,22 @@ public class Permisos implements Filter{
                 || path.startsWith("/static")
                 || path.startsWith("/css")
                 || path.startsWith("/js")
+                || path.startsWith("/files")
                 || path.startsWith("/images")
+                || path.startsWith("/fontawesome")
                 || path.equals("/")
                 || path.endsWith("/login")
                 || path.endsWith("/agregarUsuario")
+                || path.endsWith("/agregarContacto")
+                || path.endsWith("/publicacion")
                 || path.endsWith("/logout")
                 || path.endsWith("/acerca")
                 || path.startsWith("/icons")
-                || path.endsWith("/contacto");
+                || path.endsWith("/contactoView")
+                || path.endsWith("/publicacionView")
+                || path.endsWith("/perfil_publico_view")
+                || path.endsWith("/reset_password_correo");
+
     }
 
     private boolean hasAccess(String path, HttpSession session) {
@@ -75,10 +85,27 @@ public class Permisos implements Filter{
             Usuario usuario = (Usuario) usuarioObj;
             String rol = usuario.getRol().getNombre();
 
+            // Permitir a ambos roles acceder a perfil_privado_view
+            if (path.startsWith("/usuario/perfil_privado_view")) {
+                return "Usuario".equals(rol) || "Administrador".equals(rol);
+            }
+            // Permitir a ambos roles acceder a perfil_privado_view
+            if (path.startsWith("/usuario/cambiarPassword")) {
+                return "Usuario".equals(rol) || "Administrador".equals(rol);
+            }
+
             // Rutas solo para ADMIN
-            if (path.startsWith("/usuarios")) {
+            if (path.startsWith("/usuario/eliminar")) {
                 return "Administrador".equals(rol);
             }
+            if (path.startsWith("/usuario/listar")) {
+                return "Administrador".equals(rol);
+            }
+
+            if (path.startsWith("/contactos/reporte")) {
+                return "Administrador".equals(rol);
+            }
+
         }
         return true; // El resto de rutas protegidas solo requieren login
     }

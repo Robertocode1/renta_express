@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <!-- Botón con estilos consistentes -->
-                <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#agregarModal">
+                <button id="btnAgregarUsuario" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#agregarModal">
                     <i class="fa-solid fa-circle-plus me-2"></i>Agregar usuario
                 </button>
 
@@ -41,28 +41,32 @@
                                 <div class="btn-group btn-group-sm" role="group">
                                     <!-- Botón Contraseña -->
                                     <button type="button" class="btn btn-outline-secondary"
-                                            data-bs-toggle="modal" data-bs-target="#cambiarContrasenaModal"
-                                            th:attr="data-user-id=${u.id}"
-                                            title="Reasignar contraseña">
+                                            data-bs-toggle="modal" data-bs-target="#resetPasswordModal"
+                                            th:data-usuario-id="${u.id}"
+                                            title="Restablecer contraseña">
                                         <i class="fa-solid fa-lock"></i>
                                     </button>
 
                                     <!-- Botón Editar -->
-                                    <button type="button" class="btn btn-outline-primary"
-                                            data-bs-toggle="modal" data-bs-target="#modificarModal"
-                                            th:attr="onclick=|setEditId(${u.id})|"
+                                    <button type="button" class="btn btn-editar-usuario btn-outline-primary"
+                                            th:data-usuario-id="${u.id}"
                                             title="Modificar registro">
                                         <i class="fa-solid fa-edit"></i>
                                     </button>
 
                                     <!-- Botón Eliminar -->
                                     <button type="button" class="btn btn-outline-danger"
+                                            th:if="${u.id != idUsuarioLogueado}"
                                             data-bs-toggle="modal" data-bs-target="#eliminarModal"
-                                            th:attr="data-user-id=${u.id}"
+                                            th:data-usuario-id="${u.id}"
                                             title="Eliminar registro">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </div>
+<!--                                <span th:if="${u.id == idUsuarioLogueado}"-->
+<!--                                      class="text-muted fst-italic small ms-1">-->
+<!--                                      (Tu cuenta)-->
+<!--                                </span>-->
                             </td>
                         </tr>
                         </tbody>

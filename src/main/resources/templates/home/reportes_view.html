@@ -1,0 +1,91 @@
+<div th:fragment="content" class="container-fluid px-5">
+    <!-- Migas de pan (Breadcrumbs) -->
+    <nav aria-label="breadcrumb" class="mb-4 mt-4">
+        <ol class="breadcrumb small text-muted">
+            <li class="breadcrumb-item"><a th:href="@{/}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bandeja de Entrada</li>
+        </ol>
+    </nav>
+
+    <!-- Título de la sección -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Bandeja de Entrada</h2>
+            <p class="text-muted mb-0">Aquí se listan todos los mensajes recibidos a través del formulario de contacto.</p>
+        </div>
+        <a th:href="@{/mensajes}" class="btn btn-primary"><i class="ri-refresh-line me-2"></i>Actualizar</a>
+    </div>
+
+    <!-- Contenedor de los mensajes -->
+    <div class="row">
+
+        <!-- Estado de "No hay mensajes" -->
+        <!-- Este bloque se mostrará solo si la lista 'contactos' está vacía -->
+        <div th:if="${#lists.isEmpty(contactos)}" class="col-12">
+            <div class="card text-center p-5 shadow-sm">
+                <div class="card-body">
+                    <i class="ri-inbox-archive-line display-4 text-muted mb-3"></i>
+                    <h5 class="card-title">Tu bandeja está vacía</h5>
+                    <p class="card-text text-muted">Aún no has recibido ningún mensaje. Los nuevos mensajes aparecerán aquí.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Iteración sobre la lista de contactos -->
+        <!-- Este bloque se repetirá por cada contacto en la lista 'contactos' -->
+        <div class="col-lg-6 mb-4" th:each="contacto : ${contactos}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0 fw-bold" th:text="${contacto.asunto}">Asunto del Mensaje</h5>
+                    <div>
+                        <!-- Botones de acción -->
+                        <a href="#" class="btn btn-sm btn-outline-secondary disabled"><i class="ri-archive-line"></i></a>
+                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="ri-delete-bin-line"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" th:text="${contacto.mensaje}">
+                        Contenido del mensaje del cliente. Este es un texto de ejemplo para mostrar cómo se vería el cuerpo del mensaje dentro de la tarjeta.
+                    </p>
+                </div>
+                <div class="card-footer bg-light border-top-0 d-flex justify-content-between align-items-start">
+                    <div class="contact-info small text-muted">
+                        <div>
+                            <i class="ri-user-line me-1 text-primary"></i>
+                            <strong th:text="${contacto.nombre}">Nombre del Contacto</strong>
+                        </div>
+                        <div>
+                            <i class="ri-at-line me-1 text-primary"></i>
+                            <a th:href="|mailto:${contacto.correo}|" class="text-muted" th:text="${contacto.correo}">correo@ejemplo.com</a>
+                        </div>
+                        <!-- Mostrar el teléfono solo si existe -->
+                        <div th:if="${contacto.telefono != null and !contacto.telefono.isEmpty()}">
+                            <i class="ri-phone-line me-1 text-primary"></i>
+                            <span th:text="${contacto.telefono}">+123 456 789</span>
+                        </div>
+                    </div>
+                    <!-- Contenedor para la hora y el nuevo botón -->
+                    <div>
+                        <div class="timestamp small text-muted text-end">
+                            <!-- NOTA: La tabla no tiene fecha. Se recomienda agregar un campo de timestamp. -->
+                            <i class="ri-time-line me-1"></i>
+                            <span>Hace 2 horas</span>
+                        </div>
+                        <!-- BOTÓN "RESPONDER" -->
+                        <button type="button" class="btn btn-primary btn-sm mt-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#responderModal"
+                                th:data-correo="${contacto.correo}"
+                                th:data-nombre-contacto="${contacto.nombre}"
+                                th:data-asunto="${contacto.asunto}"
+                                th:data-mensaje-id="${contacto.id}">
+                            <i class="fas fa-circle-plus me-1"></i>
+                            <span>Responder</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

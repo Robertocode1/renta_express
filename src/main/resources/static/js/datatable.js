@@ -9,7 +9,7 @@ $(function () {
         "responsive": true,
         "bootstrap": true,
         "language": {
-            "url": "files/Spanish.json"
+            "url": "/files/Spanish.json"
         }
     });
 });

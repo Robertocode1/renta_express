@@ -1,0 +1,236 @@
+/* =========================================
+   FOOTER: SECCIÓN DE CONFIANZA (Estilo Futurista Aislado)
+   ========================================= */
+footer.trust-section {
+    /* Variables de color locales para este componente */
+    --color-bg: #05080F; /* Azul espacio profundo */
+    --color-surface-glass: rgba(15, 20, 35, 0.5); /* El panel de "vidrio" */
+    --color-border: rgba(0, 190, 255, 0.2);     /* Borde de neón sutil */
+    --color-accent: #00BEFF;      /* Neón-Cian (Eléctrico) */
+    --color-text-primary: #E0EFFF; /* Blanco espacial (fácil de leer) */
+    --color-text-secondary: #8095B0; /* Gris-azulado para subtexto */
+
+    /* Estilos del Footer */
+    font-family: 'Inter', sans-serif; /* (Añadido para asegurar la fuente) */
+    padding: 5rem 0;
+    border-top: 1px solid var(--color-border);
+
+    /* Fondo oscuro aplicado */
+    background: var(--color-bg);
+}
+
+/* * NOTA: Tus íconos de RemixIcon (ri-shield-check-line, etc.)
+ * deben estar enlazados en tu <head> para que esto funcione.
+ */
+
+footer.trust-section .trust-title {
+    color: var(--color-text-primary);
+    font-weight: 700;
+    text-align: center;
+}
+
+footer.trust-section .trust-description {
+    color: var(--color-text-secondary);
+    text-align: center;
+    max-width: 600px;
+    margin: 1rem auto 3rem auto;
+}
+
+footer.trust-section .trust-grid {
+    display: grid;
+    /* Usa 'container' de Bootstrap si está disponible, si no, añade padding */
+    padding: 0 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+footer.trust-section .trust-card {
+    background: var(--color-surface-glass);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+footer.trust-section .trust-card:hover {
+    /* Efecto "hover" que ilumina el borde y lo levanta */
+    transform: translateY(-8px);
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 30px rgba(0, 190, 255, 0.2);
+}
+
+footer.trust-section .trust-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px var(--color-accent);
+}
+
+/* Asegúrate de tener estas clases en tus íconos */
+footer.trust-section .trust-icon.green { color: #00FFAB; }
+footer.trust-section .trust-icon.yellow { color: #FFD700; }
+footer.trust-section .trust-icon.blue { color: var(--color-accent); }
+
+footer.trust-section .trust-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+footer.trust-section .trust-card-description {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Ajuste para que 'trust-grid' funcione dentro del .container de Bootstrap */
+footer.trust-section .container .trust-grid {
+    padding: 0;
+}
+
+/* =========================================
+   PASO 8: COMPONENTE DE CHAT
+   ========================================= */
+
+.chat-container-futurista {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    height: 80vh; /* Ocupa el 80% de la altura de la vista */
+}
+
+.chat-window {
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+
+    /* ¡Estilo de Vidrio! */
+    background: var(--color-surface-glass);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius, 16px);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Clave */
+
+    /* Flexbox para apilar header/body/footer */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 2. Cabecera --- */
+.chat-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(0,0,0,0.2); /* Un poco más oscuro */
+}
+.chat-header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.chat-header .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
+}
+.chat-header h5 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-weight: 700;
+}
+
+/* --- 3. Cuerpo (Caja de Mensajes) --- */
+.chat-body {
+    flex-grow: 1; /* ¡Esto es lo que lo hace flexible! */
+    overflow-y: auto; /* ¡Añade scroll! */
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mensaje-wrapper {
+    /* Contenedor para alinear los mensajes */
+    display: flex;
+}
+
+.mensaje {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    max-width: 75%;
+    color: var(--color-text-primary);
+}
+.mensaje p {
+    margin: 0 0 0.25rem 0;
+}
+.mensaje .timestamp {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-align: right;
+}
+
+/* Mensaje RECIBIDO (Izquierda) */
+.mensaje.recibido {
+    background: var(--color-surface-glass); /* Vidrio sobre vidrio */
+    border: 1px solid var(--color-border);
+    border-top-left-radius: 0; /* Estilo "burbuja" */
+    margin-right: auto; /* Alinea a la izquierda */
+}
+
+/* Mensaje ENVIADO (Derecha) */
+.mensaje-wrapper:has(.mensaje.enviado) {
+    justify-content: flex-end; /* Alinea el wrapper a la derecha */
+}
+.mensaje.enviado {
+    background: var(--color-accent); /* ¡Color Neón! */
+    color: var(--color-bg); /* Texto oscuro para contraste */
+    border-bottom-right-radius: 0; /* Estilo "burbuja" */
+}
+.mensaje.enviado .timestamp {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* --- 4. Formulario de Envío --- */
+.chat-input-form {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    background: rgba(0,0,0,0.2);
+}
+
+.chat-input-form input {
+    flex-grow: 1;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 50px;
+    padding: 0.75rem 1.25rem;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+.chat-input-form input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px rgba(0, 190, 255, 0.3);
+}
+
+.chat-input-form button {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 0.75rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.chat-input-form button:hover {
+    background: var(--color-text-primary);
+    box-shadow: 0 0 15px var(--color-accent);
+}

@@ -1,8 +1,12 @@
 package com.codeteam.rentaexpress.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,5 +20,9 @@ public class Caracteristica {
 
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
+
+    @ManyToMany(mappedBy = "caracteristicas", fetch = FetchType.LAZY)
+    @JsonIgnore // Evita la serialización de vuelta a Publicacion y un bucle infinito.
+    private Set<Publicacion> publicaciones = new HashSet<>();
 
 }

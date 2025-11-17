@@ -1,0 +1,127 @@
+<div th:fragment="content" class="container-fluid px-4 px-md-5 py-4">
+    <!-- Migas de pan -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb small text-muted mb-0">
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Inicio</a></li>
+            <li class="breadcrumb-item active fw-medium" aria-current="page" th:text="${user.nombre}">Mi Perfil</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4">
+        <!-- Columna principal -->
+        <div class="col-lg-9">
+            <!-- Información del perfil -->
+            <div class="card border-0 shadow-sm mb-4 rounded-3 p-4">
+                <div class="d-flex align-items-center mb-4">
+                    <img th:src="${#strings.isEmpty(user.foto) ? '/images/usuarios/default_user_img.jpg' : user.foto}"
+                         th:alt="${user.nombre}"
+                         class="rounded-circle border border-2 border-light" width="100" height="100">
+                    <div class="ms-4">
+                        <h2 class="h4 mb-1" th:text="${user.nombre}">Carlos Méndez</h2>
+                        <p class="text-muted mb-1" th:text="${user.usuario}">@carlosmndz</p>
+                        <p class="text-muted mb-1" >Miembro desde  <span th:text="${#temporals.format(user.fechaCreacion, 'MMMM'' de ''yyyy')}"></span></p>
+                    </div>
+                </div>
+                <div class="row text-center mb-3">
+                    <div class="col-md-3">
+                        <h5 class="mb-1" th:text="${#lists.size(listaPublicaciones)}">12</h5>
+                        <p class="text-muted mb-0">Publicaciones</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="mb-1">342</h5>
+                        <p class="text-muted mb-0">Seguidores</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="mb-1">89</h5>
+                        <p class="text-muted mb-0">Siguiendo</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5 class="mb-1">1.2K</h5>
+                        <p class="text-muted mb-0">Clicks totales</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publicaciones -->
+            <div class="card border-0 shadow-sm rounded-3 p-4">
+                <h3 class="h5 mb-4">Mis Publicaciones</h3>
+
+                <!-- Publicación 1 -->
+                <div class="border-bottom pb-4 mb-4" th:each="pub : ${listaPublicaciones}">
+                    <div class="d-flex align-items-start">
+                        <a th:href="@{/publicaciones/publicacionView(id=${pub.id})}">
+                            <img class="rounded me-3" style="width: 120px; height: 90px; object-fit: cover;"
+                                 th:if="${!#lists.isEmpty(pub.imagenes)}"
+                                 th:src="${pub.imagenes[0].urlImagen}"
+                                 th:alt="${pub.titulo}">
+                            <img th:if="${#lists.isEmpty(pub.imagenes)}"
+                                 src="/images/auto-placeholder.png"
+                                 alt="Imagen no disponible">
+                        </a>
+                        <div class="flex-grow-1">
+                            <h5 class="mb-1"><a th:href="@{/publicaciones/publicacionView(id=${pub.id})}" class="text-decoration-none" th:text="${pub.titulo}">Honda Civic 2020 - Excelente Estado</a></h5>
+                            <p class="text-muted small mb-2">
+                                Publicado el <span th:text="${#temporals.format(pub.fechaCreacion, 'dd'' de ''MMMM'' de ''yyyy')}">26 Octubre 2025</span>
+                            </p>
+                            <p class="mb-0" th:text="${pub.descripcion}">Vehículo en perfectas condiciones, ideal para viajes largos o uso diario...</p>
+                            <span class="badge bg-primary rounded-pill me-2" th:text="${pub.clicks} + ' clicks'">45 clicks</span>
+
+                        </div>
+
+                    </div>
+                    <!-- Botones al final -->
+                    <div class="mt-2 d-flex gap-2 justify-content-end">
+                        <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        <button class="btn btn-sm btn-outline-primary btn-editar-publicacion"
+                                th:data-publicacion-id="${pub.id}"
+                                title="Editar publicación"
+                                data-bs-toggle="modal"
+                                data-bs-target="#publicarVehiculoModal">
+                            Editar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-3 p-4">
+                <h5 class="mb-3">Configuración de perfil</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-muted btn-editar-usuario"
+                           th:data-usuario-id="${user.id}"
+                           title="Modificar registro"
+                           href="#">Editar perfil</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-muted"
+                           data-bs-toggle="modal" data-bs-target="#cambiarContrasenaModal"
+                           th:data-usuario-id="${user.id}"
+                           href="#">Cambiar contraseña</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-muted" href="#">Notificaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted" href="#">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-3 p-4 mt-4">
+                <h5 class="mb-3">Estadísticas</h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Clicks este mes:</span>
+                    <strong>245</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Mejor publicación:</span>
+                    <strong>Honda Civic 2020</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

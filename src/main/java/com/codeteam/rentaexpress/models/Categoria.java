@@ -9,14 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tipo_publicaciones", schema = "public")
-public class TipoPublicacion {
+@Table(name = "categorias", schema = "public")
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tipo", nullable = false)
+    @Column(name = "id_categoria", nullable = false)
     private Integer id;
 
-    @Column(name = "tipo_publicacion", nullable = false, length = 20)
-    private String tipoPublicacion;
-
+    @Column(name = "categoria", nullable = false, length = 20)
+    private String categoria;
 }
